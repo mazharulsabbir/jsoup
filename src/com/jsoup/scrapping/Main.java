@@ -21,7 +21,7 @@ public class Main {
      */
     static ArrayList<String> mTag = new ArrayList();
     static Document doc = Jsoup.parse(
-            "<div class=\\\"no-overflow\\\"><p></p>\\r\\n<h5><img src=\\\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/391302/mod_label/intro/Lecture-2.png\\\" alt=\\\"\\\" width=\\\"1244\\\" height=\\\"426\\\" role=\\\"presentation\\\" class=\\\"img-responsive atto_image_button_text-top\\\"><br></h5><ul>\\r\\n</ul>\\r\\n<p></p>\\r\\n<p><b><span>Reading Materials:</span></b><br></p>\\r\\n<p></p>\\r\\n<ul>\\r\\n    <li><span><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\"><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\"><a href=\\\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/391302/mod_label/intro/Lecture-2.pdf?time=1590838502526\\\" target=\\\"_blank\\\"><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\">Lecture Slide</span></a></span></span></span></li><li><span><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\"><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\"><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\"><a href=\\\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/391302/mod_label/intro/Lecture-2.pdf?time=1588394176495\\\" target=\\\"_blank\\\"><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\">Video Slide</span></a></span></span></span>\\r\\n        </span>\\r\\n    </li>\\r\\n</ul><iframe src=\\\"https://drive.google.com/file/d/1gPemladkysvP9uHpi4wHaqQxHbUbvWRP/preview\\\" width=\\\"640\\\" height=\\\"480\\\"></iframe></div>"
+            "<div class=\\\"no-overflow\\\"><p></p>\\r\\n<h5><img src=\\\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/391302/mod_label/intro/Lecture-2.png\\\" alt=\\\"\\\" width=\\\"1244\\\" height=\\\"426\\\" role=\\\"presentation\\\" class=\\\"img-responsive atto_image_button_text-top\\\"><br></h5><ul>\\r\\n</ul>\\r\\n<p></p>\\r\\n<p><b><span>Reading Materials:</span></b><br></p>\\r\\n<p></p>\\r\\n<ul>\\r\\n    <li><span><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\"><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\"><a href=\\\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/391302/mod_label/intro/Lecture-2.pdf?time=1590838502526\\\" target=\\\"_blank\\\"><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\">Lecture Slide</span></a></span></span></span></li><li><span><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\"><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\"><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\"><a href=\\\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/391302/mod_label/intro/Lecture-2.pdf?time=1588394176495\\\" target=\\\"_blank\\\"><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\">Video Slide</span></a></span></span></span>\\r\\n        </span>\\r\\n    </li>\\r\\n</ul><iframe src=\\\"https://drive.google.com/file/d/1gPemladkysvP9uHpi4wHaqQxHbUbvWRP/preview\\\" width=\\\"640\\\" height=\\\"480\\\"></iframe></div>".replaceAll("(\\\\r\\\\n|\\\\n)", "")
     );
 
     public static void main(String[] args) {
@@ -37,57 +37,40 @@ public class Main {
 
     private static void extractResource(ArrayList<ImageSource> links, ArrayList<String> imports) {
 
-        Map<String, String> map = new HashMap<>();
-
         Elements e = doc.getAllElements();
         System.out.println(doc);
         System.out.println("");
         System.out.println("=================================\n");
 
+        HashMap<String, List<String>> tagText = new HashMap<>();
+        Map<String, Integer> tagIndex = new HashMap<>();
+
         for (Element element : e) {
             String tag = element.tag().toString();
-            mTag.add(tag);
 
-            if (!map.containsValue(element.select(tag))
+            mTag.add(tag);
+            tagIndex.putIfAbsent(tag, 0);
+
+            if (!tagText.containsKey(tag)
                     && !tag.equals("a")
                     && !tag.equals("img")
                     && !tag.equals("iframe")
                     && !tag.equals("link")
+                    && !tag.equals("body")
+                    && !tag.equals("div")
                     && !tag.equals("#root")
                     && !tag.equals("html")) { // not an image or link or iframe
 
-                if (!map.containsKey(tag) && !map.containsValue(element.text())) {
-                    if ("body".equals(tag)) {
-                        if (element.childNodeSize() == 0) {
-                            map.put(tag, element.text());
-                        }
-                    } else if ("div".equals(tag)) {
-                        if (element.childNodeSize() == 0) {
-                            map.put(tag, element.text());
-                        }
-                    } else {
-                        map.put(tag, element.text());
-                    }
-                }else {
-                    if(!map.containsValue(element.text())){
-                        if ("body".equals(tag)) {
-                            if (element.childNodeSize() == 0) {
-                                map.put(tag, element.text());
-                            }
-                        } else if ("div".equals(tag)) {
-                            if (element.childNodeSize() == 0) {
-                                map.put(tag, element.text());
-                            }
-                        } else {
-                            map.put(tag, element.text());
-                        }
-                    }
+                Elements data = doc.getElementsByTag(tag);
+                List<String> array = new ArrayList<>();
+                for (Element text : data) {
+                    array.add(text.text());
                 }
-            }
-        }        
 
-        System.out.println(map.keySet());
-        
+                tagText.putIfAbsent(tag, array);
+            }
+        }
+
         //todo: need to extract href and src   
         HashMap<String, String> textDocs = new HashMap<>();
         int index = 0;
@@ -95,15 +78,20 @@ public class Main {
 
         for (String tag : mTag) {
 
-            if (map.containsKey(tag)) {
-                if (!map.get(tag).isEmpty()) {
-                    if (!textDocs.containsKey(tag) && !textDocs.containsValue(map.get(tag))) {
-                        System.out.println(map.get(tag));
-                        textDocs.put(tag, map.get(tag));
-                    }
+            if (tagText.containsKey(tag)) {
+                int tagIndx = tagIndex.get(tag);
+
+                if (!tagText.get(tag).isEmpty() && tagText.get(tag).size() > tagIndx) {
+                    System.out.print(tag + ": " + tagIndx+" * ");
+                    System.out.println(tagText.get(tag).get(tagIndx));
+                    
+                    // update contents
+                    textDocs.put(tag, tagText.get(tag).get(tagIndx));
+                    tagIndx++;
+                    tagIndex.replace(tag, tagIndx);
                 }
 
-            } else if (tag == "img" || tag == "iframe" || tag == "a") {
+            } else if ("img".equals(tag) || "iframe".equals(tag) || "a".equals(tag)) {
 
                 if (index < links.size()) {
                     var data = links.get(index);
@@ -117,7 +105,7 @@ public class Main {
                 } else {
                     System.out.println("overflow");
                 }
-            } else if (tag == "link") {
+            } else if ("link".equals(tag)) {
                 if (importIndex < imports.size()) {
                     System.out.println(imports.get(importIndex));
                     importIndex++;
