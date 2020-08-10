@@ -19,9 +19,12 @@ public class Main {
     /**
      * @param args the command line arguments
      */
+    private static final String RELPACE_WHITE_SPACE = "(\\\\r\\\\n|\\\\n)";
+    private static final String HTML = "<div class=\\\"no-overflow\\\"><p></p>\\r\\n<h5><b><b><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\">Lecture-8:</span></b></b>\\r\\n</h5>\\r\\n<p><b><b></b></b>\\r\\n</p>\\r\\n<p><b><b>Topics of discussion:</b></b>\\r\\n</p>\\r\\n<p></p>\\r\\n<p></p>\\r\\n<p></p>\\r\\n<ul>\\r\\n    <li>Virtual Simulator (TinkerCAD)</li>\\r\\n</ul>\\r\\n<p></p>\\r\\n<p><b></b></p>\\r\\n<p><b><b><span><span>Expected learning outcome:</span></span></b></b>\\r\\n</p>\\r\\n<p></p>\\r\\n<ul>\\r\\n    <li>Understand the application of tinkerCAD</li>\\r\\n    <li>Creating account with TinkerCAD</li>\\r\\n    <li>Implement basic code with TinkerCAD</li>\\r\\n</ul>\\r\\n<p></p>\\r\\n<p><b>Reading Materials:</b><br></p>\\r\\n<p></p>\\r\\n<ul>\\r\\n    <li><span><span><span><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\"><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\"><a href=\\\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/391216/mod_label/intro/Lecture-8.pdf?time=1588394741992\\\" target=\\\"_blank\\\">Lecture Slide</a></span></span>\\r\\n        </span>\\r\\n        </span>\\r\\n        </span>\\r\\n    </li>\\r\\n</ul>\\r\\n<ul>\\r\\n    <li><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\"><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\">Video Tutorial</span></span>\\r\\n    </li><iframe src=\\\"https://drive.google.com/file/d/1_bSEWLllVEES5BLJqs5RRN2S0PT6SaGg/preview\\\" width=\\\"640\\\" height=\\\"480\\\"></iframe>\\r\\n</ul>\\r\\n<ul>\\r\\n    <li><a href=\\\"https://www.tinkercad.com/circuits\\\" target=\\\"_blank\\\"><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\">Link to TinkerCAD</span></a></li>\\r\\n</ul><br>\\r\\n<p></p><br><br>\\r\\n<p></p>\\r\\n<p></p><br><br>\\r\\n<p></p></div>";
+
     static ArrayList<String> mTag = new ArrayList();
     static Document doc = Jsoup.parse(
-            "<div class=\\\"no-overflow\\\"><p></p>\\r\\n<h5><img src=\\\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/391302/mod_label/intro/Lecture-2.png\\\" alt=\\\"\\\" width=\\\"1244\\\" height=\\\"426\\\" role=\\\"presentation\\\" class=\\\"img-responsive atto_image_button_text-top\\\"><br></h5><ul>\\r\\n</ul>\\r\\n<p></p>\\r\\n<p><b><span>Reading Materials:</span></b><br></p>\\r\\n<p></p>\\r\\n<ul>\\r\\n    <li><span><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\"><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\"><a href=\\\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/391302/mod_label/intro/Lecture-2.pdf?time=1590838502526\\\" target=\\\"_blank\\\"><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\">Lecture Slide</span></a></span></span></span></li><li><span><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\"><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\"><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\"><a href=\\\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/391302/mod_label/intro/Lecture-2.pdf?time=1588394176495\\\" target=\\\"_blank\\\"><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\">Video Slide</span></a></span></span></span>\\r\\n        </span>\\r\\n    </li>\\r\\n</ul><iframe src=\\\"https://drive.google.com/file/d/1gPemladkysvP9uHpi4wHaqQxHbUbvWRP/preview\\\" width=\\\"640\\\" height=\\\"480\\\"></iframe></div>".replaceAll("(\\\\r\\\\n|\\\\n)", "")
+            HTML.replaceAll(RELPACE_WHITE_SPACE, "")
     );
 
     public static void main(String[] args) {
@@ -40,7 +43,7 @@ public class Main {
         Elements e = doc.getAllElements();
         System.out.println(doc);
         System.out.println("");
-        System.out.println("=================================\n");
+        System.out.println("=================================Result=================================\n");
 
         HashMap<String, List<String>> tagText = new HashMap<>();
         Map<String, Integer> tagIndex = new HashMap<>();
@@ -57,7 +60,9 @@ public class Main {
                     && !tag.equals("iframe")
                     && !tag.equals("link")
                     && !tag.equals("body")
+                    && !tag.equals("head")
                     && !tag.equals("div")
+                    && !tag.equals("ul")
                     && !tag.equals("#root")
                     && !tag.equals("html")) { // not an image or link or iframe
 
@@ -76,19 +81,26 @@ public class Main {
         int index = 0;
         int importIndex = 0;
 
+        List<String> result = new ArrayList<>();
+
         for (String tag : mTag) {
 
             if (tagText.containsKey(tag)) {
                 int tagIndx = tagIndex.get(tag);
 
                 if (!tagText.get(tag).isEmpty() && tagText.get(tag).size() > tagIndx) {
-                    System.out.print(tag + ": " + tagIndx+" * ");
-                    System.out.println(tagText.get(tag).get(tagIndx));
-                    
+                    if (!tagText.get(tag).get(tagIndx).isEmpty()) {
+//                        System.out.print(tag + ": " + tagIndx + " * ");
+//                        System.out.println(tagText.get(tag).get(tagIndx));
+                        if (!result.contains(tagText.get(tag).get(tagIndx))) {
+                            result.add(tagText.get(tag).get(tagIndx));
+                        }
+                    }
+
                     // update contents
                     textDocs.put(tag, tagText.get(tag).get(tagIndx));
                     tagIndx++;
-                    tagIndex.replace(tag, tagIndx);
+                    tagIndex.replace(tag, tagIndx); // update tag index
                 }
 
             } else if ("img".equals(tag) || "iframe".equals(tag) || "a".equals(tag)) {
@@ -96,22 +108,51 @@ public class Main {
                 if (index < links.size()) {
                     var data = links.get(index);
 
-                    System.out.print(data.getImageName() + " ");
-                    System.out.print(data.getImageSrc() + " ");
-                    System.out.print(data.getImageHref() + " ");
-                    System.out.print(data.getHeight() + "x" + data.getWidth());
-                    System.out.println("");
-                    index++;
+                    StringBuilder strBuilder = new StringBuilder();
+
+                    if (!data.getImageSrc().isEmpty()) {
+                        strBuilder.append(data.getImageSrc());
+                        strBuilder.append(" * ");
+                    }
+
+                    if (!data.getImageHref().isEmpty()) {
+                        strBuilder.append(data.getImageHref());
+                        strBuilder.append(" * ");
+                    }
+
+                    strBuilder.append(data.getHeight() + "x" + data.getWidth());
+
+                    if (!data.getImageName().isEmpty()) {
+                        strBuilder.append(" * ");
+                        strBuilder.append("(" + data.getImageName() + ")");
+                    }
+
+//                    System.out.println("media * " + str);
+                    if (!result.contains(strBuilder.toString())) {
+                        result.add(strBuilder.toString());
+                        index++;
+                    }
+
                 } else {
-                    System.out.println("overflow");
+//                    System.out.println("overflow");
                 }
             } else if ("link".equals(tag)) {
                 if (importIndex < imports.size()) {
-                    System.out.println(imports.get(importIndex));
-                    importIndex++;
+//                    System.out.println("imports * " + imports.get(importIndex));
+
+                    if (!result.contains(imports.get(importIndex))) {
+                        result.add(imports.get(importIndex));
+                        importIndex++;
+                    }
                 }
             }
-        }
+        } // ends of tag loop
+
+        result.forEach(str -> {
+            System.out.println(str);
+        });
+        System.out.println("\n===============================Result Ends===============================");
+
         System.out.println("");
         System.out.println(mTag);
     }
