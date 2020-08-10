@@ -20,234 +20,87 @@ public class Main {
      * @param args the command line arguments
      */
     private static final String RELPACE_WHITE_SPACE = "(\\\\r\\\\n|\\\\n)";
-    private static final String HTML = "<div class=\\\"no-overflow\\\"><p></p>\\r\\n<h5><b><b><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\">Lecture-8:</span></b></b>\\r\\n</h5>\\r\\n<p><b><b></b></b>\\r\\n</p>\\r\\n<p><b><b>Topics of discussion:</b></b>\\r\\n</p>\\r\\n<p></p>\\r\\n<p></p>\\r\\n<p></p>\\r\\n<ul>\\r\\n    <li>Virtual Simulator (TinkerCAD)</li>\\r\\n</ul>\\r\\n<p></p>\\r\\n<p><b></b></p>\\r\\n<p><b><b><span><span>Expected learning outcome:</span></span></b></b>\\r\\n</p>\\r\\n<p></p>\\r\\n<ul>\\r\\n    <li>Understand the application of tinkerCAD</li>\\r\\n    <li>Creating account with TinkerCAD</li>\\r\\n    <li>Implement basic code with TinkerCAD</li>\\r\\n</ul>\\r\\n<p></p>\\r\\n<p><b>Reading Materials:</b><br></p>\\r\\n<p></p>\\r\\n<ul>\\r\\n    <li><span><span><span><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\"><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\"><a href=\\\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/391216/mod_label/intro/Lecture-8.pdf?time=1588394741992\\\" target=\\\"_blank\\\">Lecture Slide</a></span></span>\\r\\n        </span>\\r\\n        </span>\\r\\n        </span>\\r\\n    </li>\\r\\n</ul>\\r\\n<ul>\\r\\n    <li><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\"><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\">Video Tutorial</span></span>\\r\\n    </li><iframe src=\\\"https://drive.google.com/file/d/1_bSEWLllVEES5BLJqs5RRN2S0PT6SaGg/preview\\\" width=\\\"640\\\" height=\\\"480\\\"></iframe>\\r\\n</ul>\\r\\n<ul>\\r\\n    <li><a href=\\\"https://www.tinkercad.com/circuits\\\" target=\\\"_blank\\\"><span class=\\\"\\\" style=\\\"color: rgb(39, 174, 96);\\\">Link to TinkerCAD</span></a></li>\\r\\n</ul><br>\\r\\n<p></p><br><br>\\r\\n<p></p>\\r\\n<p></p><br><br>\\r\\n<p></p></div>";
-
-    static ArrayList<String> mTag = new ArrayList();
-    static Document doc = Jsoup.parse(
-            HTML.replaceAll(RELPACE_WHITE_SPACE, "")
-    );
 
     public static void main(String[] args) {
         // TODO code application logic here
+        String[] htmls = {
+            "<img src=\\\"http://cpelearn.daffodilvarsity.edu.bd/webservice/pluginfile.php/377045/course/section/56697/Banner-3.png\\\" alt=\\\"\\\" width=\\\"1280\\\" height=\\\"393\\\" role=\\\"presentation\\\" class=\\\"img-responsive atto_image_button_text-top\\\">",
+            "<p><img src=\\\"http://cpelearn.daffodilvarsity.edu.bd/webservice/pluginfile.php/377045/course/section/89948/Banner-5.png\\\" alt=\\\"\\\" width=\\\"1280\\\" height=\\\"370\\\" role=\\\"presentation\\\" class=\\\"img-responsive atto_image_button_text-top\\\"><br></p>",
+            "<div class=\"no-overflow\"><p><iframe src=\"https://calendar.google.com/calendar/embed?height=300&amp;wkst=7&amp;bgcolor=%23F09300&amp;ctz=Asia%2FDhaka&amp;src=ZGl1LmVkdS5iZF8wcXVic2NkanJsb2gyaTVxaWdsMDhqYXRrNEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%23B39DDB&amp;showTz=0&amp;showCalendars=0&amp;showNav=1\" style=\"border-width:0\" width=\"780\" height=\"300\" frameborder=\"0\" scrolling=\"no\"></iframe><br></p></div>",
+            "<div class=\"no-overflow\"><p><a href=\"https://calendar.google.com/calendar?cid=ZGl1LmVkdS5iZF9hbzZtMGU2Y2k2Y2JpOWQ1MDNmcGJuc2Jlb0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t\" target=\"_blank\"><img src=\"https://nicogroup.net/image/catalog/Logos%20Manufracture/btn-book-appointment.png\" alt=\"\" width=\"300\" height=\"80\" role=\"presentation\" class=\"atto_image_button_text-bottom\"></a><br></p><p><b><br></b></p></div>",
+            "<h4 style=\"text-align: center;\"><img src=\"http://cpelearn.daffodilvarsity.edu.bd/webservice/pluginfile.php/377045/course/section/56698/Course%20Outline-2.png\" alt=\"\" width=\"1217\" height=\"599\" role=\"presentation\" class=\"img-responsive atto_image_button_middle\"><br></h4>\r\n<p style=\"text-align: center;\"><img src=\"http://cpelearn.daffodilvarsity.edu.bd/webservice/pluginfile.php/377045/course/section/56698/Click%20Icon.jpg\" alt=\"\" width=\"90\" height=\"40\" role=\"presentation\" class=\"atto_image_button_text-bottom\">&nbsp; &nbsp; &nbsp;<a href=\"mailto:fahad.cse@diu.edu.bd\" target=\"_blank\"><img src=\"http://cpelearn.daffodilvarsity.edu.bd/webservice/pluginfile.php/377045/course/section/56698/Email%20Icon.jpg\" alt=\"\" width=\"70\" height=\"51\" role=\"presentation\" class=\"img-responsive atto_image_button_text-bottom\"></a>&nbsp; &nbsp;<a href=\"http://wa.me/8801712937997\" target=\"_blank\"><img src=\"http://cpelearn.daffodilvarsity.edu.bd/webservice/pluginfile.php/377045/course/section/56698/Whatsapp%20Icon.png?time=1589851468238\" alt=\"\" width=\"62\" height=\"62\" role=\"presentation\" class=\"img-responsive atto_image_button_text-bottom\"></a>&nbsp;&nbsp;<a href=\"https://www.facebook.com/talk2fahad\" target=\"_blank\"><img src=\"http://cpelearn.daffodilvarsity.edu.bd/webservice/pluginfile.php/377045/course/section/56698/f_logo_RGB-Hex-Blue_512.png?time=1590027063020\" alt=\"\" width=\"50\" height=\"50\" role=\"presentation\" class=\"img-responsive atto_image_button_text-bottom\"></a>&nbsp;&nbsp;<a href=\"https://goo.gl/maps/65xvY6WhungiredX8\" target=\"_blank\"><img src=\"http://cpelearn.daffodilvarsity.edu.bd/webservice/pluginfile.php/377045/course/section/56698/location_icon.png\" alt=\"\" width=\"60\" height=\"55\" role=\"presentation\" class=\"img-responsive atto_image_button_text-bottom\"></a><br></p>\r\n<p></p>",
+            "<div class=\"no-overflow\"><p></p><p></p><img src=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/382531/mod_label/intro/Course%20Rationale.png\" alt=\"\" width=\"1238\" height=\"375\" role=\"presentation\" class=\"img-responsive atto_image_button_text-bottom\"><br><p></p></div>",
+            "<div class=\"no-overflow\"><p></p><p><b><img src=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/382532/mod_label/intro/Course%20Objectives.png\" alt=\"\" width=\"1245\" height=\"429\" role=\"presentation\" class=\"img-responsive atto_image_button_text-bottom\"><br></b></p><p></p><br><p></p></div>",
+            "<div class=\"no-overflow\"><img src=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/382535/mod_label/intro/Course%20Outcomes.png?time=1589854030664\" alt=\"\" width=\"1263\" height=\"518\" role=\"presentation\" class=\"img-responsive atto_image_button_text-bottom\"></div>",
+            "<div class=\"no-overflow\"><p><span class=\"\" style=\"color: rgb(39, 174, 96);\">A Welcome Message from Course Teacher</span></p>\r\n<iframe src=\"https://drive.google.com/file/d/1bOu7_O5qGZv-Fr5jJgbeAncevyuSzVut/preview\" width=\"640\" height=\"400\"></iframe>\r\n<p><span class=\"\" style=\"color: rgb(39, 174, 96);\"><br></span></p></div>",
+            "<div class=\"no-overflow\"><p><img src=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/511992/mod_label/intro/Please%20Fill-up%20This%20Form%20Below.png\" alt=\"\" width=\"1180\" height=\"194\" role=\"presentation\" class=\"img-responsive atto_image_button_text-top\"><br></p><h3 style=\"text-align: center;\"><b><span class=\"\" style=\"color: rgb(41, 128, 185);\"><a href=\"https://forms.gle/k2G4Tn7PgHC2cuuw8\" target=\"_blank\">Click Here</a></span></b></h3></div>",
+            "<p><img src=\"http://cpelearn.daffodilvarsity.edu.bd/webservice/pluginfile.php/377045/course/section/84004/Online%20Discussion%20-%20Copy.png\" alt=\"\" width=\"1495\" height=\"329\" role=\"presentation\" class=\"img-responsive atto_image_button_text-top\"><br></p>",
+            "<p><img src=\"http://cpelearn.daffodilvarsity.edu.bd/webservice/pluginfile.php/377045/course/section/90035/Assignment-3.png\" alt=\"\" width=\"588\" height=\"211\" role=\"presentation\" class=\"img-responsive atto_image_button_text-top\"><br></p>",
+            "<p><img src=\"http://cpelearn.daffodilvarsity.edu.bd/webservice/pluginfile.php/377045/course/section/86359/feedback-3.jpg\" alt=\"\" width=\"750\" height=\"198\" role=\"presentation\" class=\"img-responsive atto_image_button_text-top\"><br></p>",
+            "<h5></h5><img src=\"http://cpelearn.daffodilvarsity.edu.bd/webservice/pluginfile.php/377045/course/section/56699/Introductory%20Banner.png\" alt=\"\" width=\"1280\" height=\"203\" role=\"presentation\" class=\"img-responsive atto_image_button_text-bottom\"><br><p></p>",
+            "<div class=\"no-overflow\"><p></p>\r\n<h5><img src=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/382827/mod_label/intro/Lecture-1.png?time=1589855211583\" alt=\"\" width=\"1250\" height=\"451\" role=\"presentation\" class=\"img-responsive atto_image_button_text-top\"><br></h5>\r\n<p></p>\r\n<ul>\r\n    <li><span><span><span><span class=\"\" style=\"color: rgb(41, 128, 185);\"><span class=\"\" style=\"color: rgb(41, 128, 185);\"><a href=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/382827/mod_label/intro/Lecture-1.pdf?time=1590834777538\" target=\"_blank\">Lecture Slide</a></span></span></span></span></span></li><li><span><span><span><span class=\"\" style=\"color: rgb(41, 128, 185);\"><span class=\"\" style=\"color: rgb(41, 128, 185);\">Video Slide</span></span>\r\n        </span><span class=\"\" style=\"color: rgb(41, 128, 185);\"></span></span><span class=\"\" style=\"color: rgb(41, 128, 185);\"></span></span><span class=\"\" style=\"color: rgb(41, 128, 185);\"></span></li><iframe src=\"https://drive.google.com/file/d/1L0NGZZ85tJIKaZftkiVSbS6T103ifwX2/preview\" width=\"600\" height=\"480\"></iframe></ul>\r\n<ul>\r\n    <li><span><span><span><span class=\"\" style=\"color: rgb(41, 128, 185);\"><a href=\"https://www.menti.com/xc8n16fhq4\" target=\"_blank\">A simple question needs answer</a></span></span>\r\n        </span>\r\n        </span>\r\n    </li>\r\n</ul>\r\n<ul>\r\n    <li><span class=\"\" style=\"font-size: 1rem; color: rgb(41, 128, 185);\"><span style=\"background-color: rgb(255, 255, 255); font-size: 1rem;\">Animated Video on Definition of Embedded Systems</span></span><span style=\"font-size: 1rem; color: rgb(41, 128, 185);\">&nbsp;</span></li>\r\n    <iframe src=\"https://drive.google.com/file/d/1Iu8iN2jlkSNKGdzD3nO-plrQkR7uiTXr/preview\" width=\"600\" height=\"480\"></iframe>\r\n</ul>\r\n<ul>\r\n    <li><span class=\"\" style=\"color: rgb(41, 128, 185);\"><span class=\"\" style=\"color: rgb(41, 128, 185);\">Self Assessment (Watch the video and answer the question)</span><iframe width=\"600\" height=\"480\" src=\"https://edpuzzle.com/embed/media/5ebbc2315fd3b23e858dc97c\" frameborder=\"0\" allowfullscreen=\"\"></iframe></span></li></ul>\r\n<p></p>\r\n<p></p>\r\n<p></p>\r\n<p></p>\r\n<p></p></div>",
+            "<div class=\"no-overflow\"><p></p>\r\n<h5><img src=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/382827/mod_label/intro/Lecture-1.png?time=1589855211583\" alt=\"\" width=\"1250\" height=\"451\" role=\"presentation\" class=\"img-responsive atto_image_button_text-top\"><br></h5>\r\n<p></p>\r\n<ul>\r\n    <li><span><span><span><span class=\"\" style=\"color: rgb(41, 128, 185);\"><span class=\"\" style=\"color: rgb(41, 128, 185);\"><a href=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/382827/mod_label/intro/Lecture-1.pdf?time=1590834777538\" target=\"_blank\">Lecture Slide</a></span></span></span></span></span></li><li><span><span><span><span class=\"\" style=\"color: rgb(41, 128, 185);\"><span class=\"\" style=\"color: rgb(41, 128, 185);\">Video Slide</span></span>\r\n        </span><span class=\"\" style=\"color: rgb(41, 128, 185);\"></span></span><span class=\"\" style=\"color: rgb(41, 128, 185);\"></span></span><span class=\"\" style=\"color: rgb(41, 128, 185);\"></span></li><iframe src=\"https://drive.google.com/file/d/1L0NGZZ85tJIKaZftkiVSbS6T103ifwX2/preview\" width=\"600\" height=\"480\"></iframe></ul>\r\n<ul>\r\n    <li><span><span><span><span class=\"\" style=\"color: rgb(41, 128, 185);\"><a href=\"https://www.menti.com/xc8n16fhq4\" target=\"_blank\">A simple question needs answer</a></span></span>\r\n        </span>\r\n        </span>\r\n    </li>\r\n</ul>\r\n<ul>\r\n    <li><span class=\"\" style=\"font-size: 1rem; color: rgb(41, 128, 185);\"><span style=\"background-color: rgb(255, 255, 255); font-size: 1rem;\">Animated Video on Definition of Embedded Systems</span></span><span style=\"font-size: 1rem; color: rgb(41, 128, 185);\">&nbsp;</span></li>\r\n    <iframe src=\"https://drive.google.com/file/d/1Iu8iN2jlkSNKGdzD3nO-plrQkR7uiTXr/preview\" width=\"600\" height=\"480\"></iframe>\r\n</ul>\r\n<ul>\r\n    <li><span class=\"\" style=\"color: rgb(41, 128, 185);\"><span class=\"\" style=\"color: rgb(41, 128, 185);\">Self Assessment (Watch the video and answer the question)</span><iframe width=\"600\" height=\"480\" src=\"https://edpuzzle.com/embed/media/5ebbc2315fd3b23e858dc97c\" frameborder=\"0\" allowfullscreen=\"\"></iframe></span></li></ul>\r\n<p></p>\r\n<p></p>\r\n<p></p>\r\n<p></p>\r\n<p></p></div>",
+            "<div class=\"no-overflow\"><p></p>\r\n<h5><img src=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/391302/mod_label/intro/Lecture-2.png\" alt=\"\" width=\"1244\" height=\"426\" role=\"presentation\" class=\"img-responsive atto_image_button_text-top\"><br></h5><ul>\r\n</ul>\r\n<p></p>\r\n<p><b><span>Reading Materials:</span></b><br></p>\r\n<p></p>\r\n<ul>\r\n    <li><span><span class=\"\" style=\"color: rgb(39, 174, 96);\"><span class=\"\" style=\"color: rgb(39, 174, 96);\"><a href=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/391302/mod_label/intro/Lecture-2.pdf?time=1590838502526\" target=\"_blank\"><span class=\"\" style=\"color: rgb(39, 174, 96);\">Lecture Slide</span></a></span></span></span></li><li><span><span class=\"\" style=\"color: rgb(39, 174, 96);\"><span class=\"\" style=\"color: rgb(39, 174, 96);\"><span class=\"\" style=\"color: rgb(39, 174, 96);\"><a href=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/391302/mod_label/intro/Lecture-2.pdf?time=1588394176495\" target=\"_blank\"><span class=\"\" style=\"color: rgb(39, 174, 96);\">Video Slide</span></a></span></span></span>\r\n        </span>\r\n    </li>\r\n</ul><iframe src=\"https://drive.google.com/file/d/1gPemladkysvP9uHpi4wHaqQxHbUbvWRP/preview\" width=\"640\" height=\"480\"></iframe></div>",
+            "<div class=\"no-overflow\"><p><img src=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/588848/mod_label/intro/Mock%20Test.jpg\" alt=\"\" width=\"705\" height=\"352\" role=\"presentation\" class=\"img-responsive atto_image_button_text-top\"><br></p></div>",
+            "<p><img src=\"http://cpelearn.daffodilvarsity.edu.bd/webservice/pluginfile.php/377045/course/section/59228/Class%20Test-1%20-%20Copy.png\" alt=\"\" width=\"800\" height=\"300\" role=\"presentation\" class=\"atto_image_button_text-top\"><br></p>",
+            "<div class=\"no-overflow\"><p></p><h5><span><span><span><span><span class=\"\" style=\"color: rgb(165, 105, 189);\"><b>Class Test-1:</b></span></span></span></span></span></h5><p><b><span><span></span></span></b></p><p><b>Topics of discussion:</b></p><p></p><p><span><span><span>The main discussion of this lecture is to review all the past lectures and get ready for the Class Test.</span></span></span></p><p><span><b><span></span></b></span></p><p><b><span><span>Expected learning outcome:</span></span></b><br></p><p>Able to know the existing state of learning process.</p><p></p></div>",
+            "<div class=\"no-overflow\"><p></p><h5><b><span class=\"\" style=\"color: rgb(41, 128, 185);\">Discussion on Project Idea for course and Assignment:</span></b></h5><p><b>Topics of discussion:</b></p><p></p><ul><li>&nbsp;Discuss the project Idea for the upcoming mandatory project and assignment</li></ul><p></p><p><b></b></p><p><b>Expected learning outcome:</b><br></p><p></p><ul><li>Understand the importance of project work</li><li>Gather initial idea about the possible area of work&nbsp;</li><li>Understand the process to submit assignment and it's format</li></ul><p></p><p><b>List for possible area of project:</b><br></p><p></p><ul><li><span><a href=\"https://create.arduino.cc/projecthub\" target=\"_blank\">Possible areas of project</a></span></li></ul><span><b>Instruction for project:</b><br><ul style=\"\"><li style=\"\">Must form a group of maximum 3 members</li><li style=\"\">Study the possible area of project&nbsp;</li><li style=\"\">Formulate own idea to implement the project in the context of Bangladesh</li><li style=\"\">In-case if the current situation continues, then we have to present a simulated work</li><li style=\"\">The whole project work (hands-on/simulation) must be submitted as a video presentation</li><li style=\"\">Link to submit video presentation (will be published soon)</li></ul></span><p></p><span><b>Instruction for assignment:</b><br><ul style=\"\"><li style=\"\">Assignment will be also on the same topic with same group for project</li><li style=\"\">The&nbsp; assignment should be based on the attached Template (<a href=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/383020/mod_label/intro/Assignment%20Template.docx\" target=\"_blank\">Click Here to download</a>)</li><li style=\"\">Plagiarism should not be more than 15%</li><li style=\"\">The minimum page length should be 8 pages without reference&nbsp;</li></ul><br></span><p></p></div>",
+            "<div class=\"no-overflow\"><p></p>\r\n<h5><img src=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/382951/mod_label/intro/Lecture-3.png\" alt=\"\" width=\"1130\" height=\"399\" role=\"presentation\" class=\"img-responsive atto_image_button_text-top\"><br></h5>\r\n<ul>\r\n</ul>\r\n<p></p>\r\n<p><span><span><span><b><span><span class=\"\" style=\"color: rgb(44, 62, 80);\">Reading Materials:</span></span>\r\n    </b>\r\n    </span>\r\n    </span>\r\n    </span><br></p>\r\n<p></p>\r\n<ul>\r\n    <li><span><span><span><a href=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/382951/mod_label/intro/Lecture-3.pdf?time=1588394280473\" target=\"_blank\">Lecture Slide</a></span></span>\r\n        </span>\r\n    </li>\r\n    <li><span><span class=\"\" style=\"color: rgb(41, 128, 185);\">Video Slide</span></span>\r\n    </li>\r\n    <iframe src=\"https://drive.google.com/file/d/1541dgZGwD6duf98Tvj8_fsHzt8Ex78s-/preview\" width=\"640\" height=\"480\"></iframe></ul>\r\n<p></p>\r\n\r\n<p>\r\n</p>\r\n<ul>\r\n    <li><span class=\"\" style=\"color: rgb(41, 128, 185);\">Self Assessment (Try it)</span></li>\r\n    <iframe width=\"590\" height=\"475\" src=\"https://edpuzzle.com/embed/media/5edd94dc5b2af53f258258eb\" frameborder=\"0\" allowfullscreen=\"\"></iframe>\r\n</ul>\r\n\r\n<p></p>\r\n<p></p>\r\n<p></p>\r\n<p><b></b></p>\r\n<ul></ul>\r\n<p></p></div>",
+            "<div class=\"no-overflow\"><p></p><h5><img src=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/391306/mod_label/intro/Lecture-4%20%281%29.png\" alt=\"\" width=\"1141\" height=\"463\" role=\"presentation\" class=\"img-responsive atto_image_button_text-top\"><br></h5><p></p><p></p><p><b><span>Reading Materials:</span></b><br></p><p></p><ul><li><span><span class=\"\" style=\"color: rgb(39, 174, 96);\"><a href=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/391306/mod_label/intro/Lecture-4.pdf?time=1588394373705\" target=\"_blank\"><span class=\"\" style=\"color: rgb(39, 174, 96);\">Lecture Slide</span></a></span></span></li></ul><br><p></p></div>",
+            "<div class=\"no-overflow\"><h5><img src=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/382962/mod_label/intro/Lecture-5.png\" alt=\"\" width=\"1190\" height=\"406\" role=\"presentation\" class=\"img-responsive atto_image_button_text-top\"><br></h5><ul>\r\n</ul>\r\n<p><span><span><span><b><span><span>Reading Materials:</span></span>\r\n    </b>\r\n    </span>\r\n    </span>\r\n    </span><br></p>\r\n<p></p>\r\n<ul>\r\n    <li><span><span><span><span class=\"\" style=\"color: rgb(41, 128, 185);\"><a href=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/382962/mod_label/intro/Lecture-5.pdf?time=1588394491778\" target=\"_blank\">Lecture Slide</a></span></span>\r\n        </span>\r\n        </span>\r\n    </li>\r\n    <li><span><span><span class=\"\" style=\"color: rgb(41, 128, 185);\">Video Slide</span></span>        \r\n      </span>\r\n    </li>\r\n</ul> <iframe src=\"https://drive.google.com/file/d/1vrk2HaLdtxtodnhRW7zKFJ1YS7mdBCeC/preview\" width=\"640\" height=\"480\"></iframe>\r\n\r\n<br><br>\r\n<p></p><br><br>\r\n<p></p>\r\n<p></p>\r\n<p><b><u><br></u></b></p><br></div>",
+            "<div class=\"no-overflow\"><p></p>\r\n<h5><img src=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/391218/mod_label/intro/Lecture-6.png\" alt=\"\" width=\"1186\" height=\"480\" role=\"presentation\" class=\"img-responsive atto_image_button_text-top\"><br></h5><ul>\r\n</ul>\r\n<p></p>\r\n<p><b>Reading Materials:</b><br></p>\r\n<p></p>\r\n<ul>\r\n    <li><span><span class=\"\" style=\"color: rgb(39, 174, 96);\"><span class=\"\" style=\"color: rgb(39, 174, 96);\"><a href=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/391218/mod_label/intro/Lecture-6.pdf?time=1588394529565\" target=\"_blank\"><span class=\"\" style=\"color: rgb(39, 174, 96);\">Lecture Slide</span></a>\r\n        </span>\r\n        </span>\r\n        </span>\r\n    </li>\r\n    <li><span><span class=\"\" style=\"color: rgb(39, 174, 96);\">Video Slide</span></span>\r\n    </li> <iframe src=\"https://drive.google.com/file/d/1ZhEtRPLiay3_stw3WTXkTG-rhGcAfGM3/preview\" width=\"640\" height=\"480\"></iframe>\r\n</ul><br><br><br>\r\n<p></p></div>",
+            "<div class=\"no-overflow\"><p><h5><b><span class=\"\" style=\"color: rgb(165, 105, 189);\">Class Test-2:</span></b></h5><p><b></b></p><p><b>Topics of discussion:</b></p><p></p><p>The main discussion of this lecture is to review all the past 4 lectures&nbsp; and attend the quiz.</p><p><b></b></p><p><b>Expected learning outcome:</b><br></p><p>Able to judge the level of preparation for Mid- Term Exam</p><br><br></p></div>",
+            "<div class=\"no-overflow\"><p></p><h5><span><span><span><b><span class=\"\" style=\"color: rgb(41, 128, 185);\">Lecture-7:</span></b></span></span></span></h5><p><b><span><span></span></span></b></p><p><b>Topics of discussion:</b></p><p></p><p></p><ul><li>Syntax related with analog sensors</li><li>Pulse Width Modulation (PWM)</li></ul><p></p><p><span><b><span></span></b></span></p><p><b><span><span>Expected learning outcome:</span></span></b></p><p></p><ul><li>Understand analog function to read and write data&nbsp;</li><li><span><span>Understand PWM and it's application</span></span></li><li>Implement advance functions related with real life data</li></ul><p><span><span><span><b><span><span>Reading Materials:</span></span></b></span></span></span><br></p><p></p><ul><li><span><span><span><a href=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/383012/mod_label/intro/Lecture-7.pdf?time=1588394708383\" target=\"_blank\">Lecture Slide</a></span></span></span></li></ul><br><br><p></p></div>",
+            "<div class=\"no-overflow\"><p></p>\r\n<h5><b><b><span class=\"\" style=\"color: rgb(39, 174, 96);\">Lecture-8:</span></b></b>\r\n</h5>\r\n<p><b><b></b></b>\r\n</p>\r\n<p><b><b>Topics of discussion:</b></b>\r\n</p>\r\n<p></p>\r\n<p></p>\r\n<p></p>\r\n<ul>\r\n    <li>Virtual Simulator (TinkerCAD)</li>\r\n</ul>\r\n<p></p>\r\n<p><b></b></p>\r\n<p><b><b><span><span>Expected learning outcome:</span></span></b></b>\r\n</p>\r\n<p></p>\r\n<ul>\r\n    <li>Understand the application of tinkerCAD</li>\r\n    <li>Creating account with TinkerCAD</li>\r\n    <li>Implement basic code with TinkerCAD</li>\r\n</ul>\r\n<p></p>\r\n<p><b>Reading Materials:</b><br></p>\r\n<p></p>\r\n<ul>\r\n    <li><span><span><span><span class=\"\" style=\"color: rgb(39, 174, 96);\"><span class=\"\" style=\"color: rgb(39, 174, 96);\"><a href=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/391216/mod_label/intro/Lecture-8.pdf?time=1588394741992\" target=\"_blank\">Lecture Slide</a></span></span>\r\n        </span>\r\n        </span>\r\n        </span>\r\n    </li>\r\n</ul>\r\n<ul>\r\n    <li><span class=\"\" style=\"color: rgb(39, 174, 96);\"><span class=\"\" style=\"color: rgb(39, 174, 96);\">Video Tutorial</span></span>\r\n    </li><iframe src=\"https://drive.google.com/file/d/1_bSEWLllVEES5BLJqs5RRN2S0PT6SaGg/preview\" width=\"640\" height=\"480\"></iframe>\r\n</ul>\r\n<ul>\r\n    <li><a href=\"https://www.tinkercad.com/circuits\" target=\"_blank\"><span class=\"\" style=\"color: rgb(39, 174, 96);\">Link to TinkerCAD</span></a></li>\r\n</ul><br>\r\n<p></p><br><br>\r\n<p></p>\r\n<p></p><br><br>\r\n<p></p></div>",
+            "<div class=\"no-overflow\"><p></p><h5><span><span><span><b><span class=\"\" style=\"color: rgb(41, 128, 185);\">Lecture-9:</span></b></span></span></span></h5><p><b><span><span>Lecture Objective:</span></span></b></p><p></p><ul><li>Advance simulation work with TinkerCAD</li></ul><p></p><p><span><b><span></span></b></span></p><p><b><span><span>Lecture Outcome:</span></span></b></p><p></p><ul><li><span><span>Able to work with multiple components</span></span></li><li><span><span>Understand fading effect</span></span></li><li><span><span>&nbsp;Understand the impact of any project before real life implementation</span></span></li></ul><p><span><span><span><b><span><span>Reading Materials:</span></span></b></span></span></span></p><p></p><ul><li><span><span><span><span><span style=\"\"><span style=\"\"><a href=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/383021/mod_label/intro/Lecture-9.pdf?time=1588394822504\" target=\"_blank\"><span class=\"\" style=\"color: rgb(41, 128, 185);\">Lecture Slide</span></a></span></span></span></span></span></span></li><li><a href=\"https://youtu.be/X8dHbdhnGKY\" target=\"_blank\"><span class=\"\" style=\"color: rgb(41, 128, 185);\">Video Tutorial</span></a></li><li><a href=\"https://www.tinkercad.com/circuits\" target=\"_blank\"><span class=\"\" style=\"color: rgb(41, 128, 185);\">Link to TinkerCAD</span></a></li></ul><br><p></p></div>",
+            "<div class=\"no-overflow\"><p></p><h5><b><b><span class=\"\" style=\"color: rgb(39, 174, 96);\">Lecture-10:</span></b></b></h5><p><b><b></b></b></p><p><b><b>Topics of discussion:</b></b></p><p></p><p></p><p></p><ul><li>EEPROM and advance programming</li></ul><p></p><p><b></b></p><p><b><b><span><span>Expected learning outcome:</span></span></b></b></p><p></p><ul><li>Understand the importance of EEPROM</li><li>Understand the basic of data size and memory limitations</li><li>How to access and write in EEPROM</li><li>How to update anything EEPROM</li></ul><p></p><p><b>Reading Materials:</b><br></p><p></p><ul><li><span><span><span><span><span class=\"\" style=\"color: rgb(39, 174, 96);\"><a href=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/391207/mod_label/intro/Lecture-10.pdf?time=1588394859736\" target=\"_blank\"><span class=\"\" style=\"color: rgb(39, 174, 96);\">Lecture Slide</span></a></span></span></span></span></span></li><br></ul><br><br><p></p></div>",
+            "<div class=\"no-overflow\"><p></p><h5><b><span class=\"\" style=\"color: rgb(41, 128, 185);\">Project Idea Presentation:</span></b></h5><p><b>Topics of discussion:</b></p><p>The main objective of this lecture is to share the project Idea which is going to be implemented by students.</p><p><b></b></p><p><b>Expected learning outcome:</b><br></p><p>Students will present their idea on the class which need to be implemented by the end of Semester.</p><p><b>Presentation template:</b></p><p><ul><li>Download the template (<a href=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/391206/mod_label/intro/Embedded%20Systems%20Template.pptx\" target=\"_blank\">Click Here</a>)</li></ul></p><br><br><p></p></div>",
+            "<p><img src=\"http://cpelearn.daffodilvarsity.edu.bd/webservice/pluginfile.php/377045/course/section/59232/Exam%20Banner-1.png\" alt=\"\" width=\"1026\" height=\"121\" role=\"presentation\" class=\"img-responsive atto_image_button_text-bottom\"><br></p>",
+            "<div class=\"no-overflow\"><p><b><u><span class=\"\" style=\"color: rgb(205, 97, 85);\">MID Term Syllabus:</span></u></b></p><p><span style=\"font-size: 1rem;\">MID Term Syllabus includes Lesson (1-10)</span></p><p><b style=\"font-size: 1rem;\"><u><span class=\"\" style=\"color: rgb(205, 97, 85);\">MID Assessment Plan:</span></u></b><br></p><p></p><ul><li><span>3-5 Questions with equal marks distribution will be given</span></li><li><span>Each question will contain two parts</span></li><li><span>The question will be related to theoretical knowledge along with the practical implementation based on a real life scenario.</span></li></ul><p></p></div>",
+            "<p><img src=\"http://cpelearn.daffodilvarsity.edu.bd/webservice/pluginfile.php/377045/course/section/59240/Exam%20Banner-2.png\" alt=\"\" width=\"1024\" height=\"119\" role=\"presentation\" class=\"img-responsive atto_image_button_text-bottom\"><br></p>",
+            "<div class=\"no-overflow\"><p></p><p><b><u><span class=\"\" style=\"color: rgb(205, 97, 85);\">Final Exam Syllabus:</span></u></b></p><p>The syllabus for final exam includes&nbsp; all the lectures (1-16)</p><p><b><u><span class=\"\" style=\"color: rgb(205, 97, 85);\">Final Exam Assessment Plan:</span></u></b><br></p><p></p><ul><li><span>5 Questions with equal marks distribution will be given</span></li><li>Each question will contain two parts</li><li>The question will be related to theoretical knowledge along with the practical implementation based on a real life scenario.</li></ul><br><p></p></div>",};
 
-        Elements imports = doc.select("link[href]");
-        Elements urls = doc.select("img[src]~a[href],a[href]~img[src],a[href],[src]");
-//        System.out.println(urls);
-//        System.out.println(imports);
-
-        extractResource(printUrls(urls), printImports(imports));
+        for (int i = 0; i < htmls.length; i++) {
+            String html = htmls[i];
+            Document doc = Jsoup.parse(html.replaceAll(RELPACE_WHITE_SPACE, ""));
+            System.out.println(i);
+            HtmlDataParser parser = new HtmlDataParser(doc);
+            parser.getResource().forEach(str -> {
+                if (!"span".equals(str.getTag())) {
+                    if (str.getText().equals("media")) {
+                        System.out.println("<" + str.getTag() + "> \t" + buildImageString(str.getMedia()));
+                    } else {
+                        System.out.println("<" + str.getTag() + "> \t" + str.getText());
+                    }
+                }else{
+                    System.out.println("\n=========Span Is Ignored==========\n");
+                }
+            });
+            System.out.println("");
+            System.out.println("=========================================================================");
+        }
     }
 
-    private static void extractResource(ArrayList<ImageSource> links, ArrayList<String> imports) {
+    private static String buildImageString(MediaResource data) {
+        StringBuilder strBuilder = new StringBuilder();
 
-        Elements e = doc.getAllElements();
-        System.out.println(doc);
-        System.out.println("");
-        System.out.println("=================================Result=================================\n");
-
-        HashMap<String, List<String>> tagText = new HashMap<>();
-        Map<String, Integer> tagIndex = new HashMap<>();
-
-        for (Element element : e) {
-            String tag = element.tag().toString();
-
-            mTag.add(tag);
-            tagIndex.putIfAbsent(tag, 0);
-
-            if (!tagText.containsKey(tag)
-                    && !tag.equals("a")
-                    && !tag.equals("img")
-                    && !tag.equals("iframe")
-                    && !tag.equals("link")
-                    && !tag.equals("body")
-                    && !tag.equals("head")
-                    && !tag.equals("div")
-                    && !tag.equals("ul")
-                    && !tag.equals("#root")
-                    && !tag.equals("html")) { // not an image or link or iframe
-
-                Elements data = doc.getElementsByTag(tag);
-                List<String> array = new ArrayList<>();
-                for (Element text : data) {
-                    array.add(text.text());
-                }
-
-                tagText.putIfAbsent(tag, array);
-            }
+        if (!data.getImageSrc().isEmpty()) {
+            strBuilder.append(data.getImageSrc());
+            strBuilder.append(" * ");
         }
 
-        //todo: need to extract href and src   
-        HashMap<String, String> textDocs = new HashMap<>();
-        int index = 0;
-        int importIndex = 0;
-
-        List<String> result = new ArrayList<>();
-
-        for (String tag : mTag) {
-
-            if (tagText.containsKey(tag)) {
-                int tagIndx = tagIndex.get(tag);
-
-                if (!tagText.get(tag).isEmpty() && tagText.get(tag).size() > tagIndx) {
-                    if (!tagText.get(tag).get(tagIndx).isEmpty()) {
-//                        System.out.print(tag + ": " + tagIndx + " * ");
-//                        System.out.println(tagText.get(tag).get(tagIndx));
-                        if (!result.contains(tagText.get(tag).get(tagIndx))) {
-                            result.add(tagText.get(tag).get(tagIndx));
-                        }
-                    }
-
-                    // update contents
-                    textDocs.put(tag, tagText.get(tag).get(tagIndx));
-                    tagIndx++;
-                    tagIndex.replace(tag, tagIndx); // update tag index
-                }
-
-            } else if ("img".equals(tag) || "iframe".equals(tag) || "a".equals(tag)) {
-
-                if (index < links.size()) {
-                    var data = links.get(index);
-
-                    StringBuilder strBuilder = new StringBuilder();
-
-                    if (!data.getImageSrc().isEmpty()) {
-                        strBuilder.append(data.getImageSrc());
-                        strBuilder.append(" * ");
-                    }
-
-                    if (!data.getImageHref().isEmpty()) {
-                        strBuilder.append(data.getImageHref());
-                        strBuilder.append(" * ");
-                    }
-
-                    strBuilder.append(data.getHeight() + "x" + data.getWidth());
-
-                    if (!data.getImageName().isEmpty()) {
-                        strBuilder.append(" * ");
-                        strBuilder.append("(" + data.getImageName() + ")");
-                    }
-
-//                    System.out.println("media * " + str);
-                    if (!result.contains(strBuilder.toString())) {
-                        result.add(strBuilder.toString());
-                        index++;
-                    }
-
-                } else {
-//                    System.out.println("overflow");
-                }
-            } else if ("link".equals(tag)) {
-                if (importIndex < imports.size()) {
-//                    System.out.println("imports * " + imports.get(importIndex));
-
-                    if (!result.contains(imports.get(importIndex))) {
-                        result.add(imports.get(importIndex));
-                        importIndex++;
-                    }
-                }
-            }
-        } // ends of tag loop
-
-        result.forEach(str -> {
-            System.out.println(str);
-        });
-        System.out.println("\n===============================Result Ends===============================");
-
-        System.out.println("");
-        System.out.println(mTag);
-    }
-
-    private static ArrayList<String> printImports(Elements imports) {
-        ArrayList<String> mImports = new ArrayList<>();
-
-//        System.out.println("Imports: " + imports.size());
-        for (Element link : imports) {
-            mImports.add(link.attr("href").replace("\\\"", ""));
-            mImports.add(link.attr("rel").replace("\\\"", ""));
+        if (!data.getImageHref().isEmpty()) {
+            strBuilder.append(data.getImageHref());
+            strBuilder.append(" * ");
         }
 
-        return mImports;
-    }
+        strBuilder.append(data.getHeight()).append("x").append(data.getWidth());
 
-    private static ArrayList<ImageSource> printUrls(Elements urls) {
-        Set<String> hrefSets = new HashSet<>();
-        Set<String> srcSets = new HashSet<>();
-
-        ArrayList<ImageSource> links = new ArrayList<>();
-
-        urls.forEach((Element link) -> {
-            var src = "";
-            int height = 0;
-            int width = 0;
-            var aHref = "";
-            var name = link.text().replace("\\\"", "");
-
-            var mElementTag = "img";
-            src = selectIframeOrSrc(mElementTag, link).get("src");
-            height = convertToInt(selectIframeOrSrc(mElementTag, link).get("height"));
-            width = convertToInt(selectIframeOrSrc(mElementTag, link).get("width"));
-
-            if (src.isEmpty()) {
-                mElementTag = "iframe";
-                src = selectIframeOrSrc(mElementTag, link).get("src");
-                height = convertToInt(selectIframeOrSrc(mElementTag, link).get("height"));
-                width = convertToInt(selectIframeOrSrc(mElementTag, link).get("width"));
-            }
-
-            if (link.select("a") != null) {
-                aHref = link.select("a").attr("href").replace("\\\"", "");
-            } else {
-                aHref = link.attr("href").replace("\\\"", "");
-            }
-
-            if (aHref.isEmpty()) {
-                if (!src.isEmpty()) {
-                    if (!srcSets.contains(src)) {
-                        srcSets.add(src);
-                        links.add(new ImageSource(name, src, aHref, height, width));
-                    }
-                }
-            } else {
-                if (!src.isEmpty()) {
-                    if (!srcSets.contains(src) && !hrefSets.contains(aHref)) {
-                        srcSets.add(src);
-                        hrefSets.add(aHref);
-                        links.add(new ImageSource(name, src, aHref, height, width));
-                    }
-                } else {
-                    if (!hrefSets.contains(aHref)) {
-                        srcSets.add(src);
-                        links.add(new ImageSource(name, src, aHref, height, width));
-                    }
-                }
-            }
-        });
-
-        return links;
-    }
-
-    private static HashMap<String, String> selectIframeOrSrc(String tag, Element link) {
-        HashMap<String, String> map = new HashMap<>();
-
-        if (link.select(tag) != null) {
-            map.put("src", link.select(tag).attr("src").replace("\\\"", ""));
-            map.put("height", link.select(tag).attr("height").replace("\\\"", ""));
-            map.put("width", link.select(tag).attr("width").replace("\\\"", ""));
-        } else {
-            map.put("src", link.attr("src").replace("\\\"", ""));
-            map.put("height", link.attr("height").replace("\\\"", ""));
-            map.put("width", link.attr("width").replace("\\\"", ""));
+        if (!data.getImageName().isEmpty()) {
+            strBuilder.append(" * ");
+            strBuilder.append("(").append(data.getImageName()).append(")");
         }
 
-        return map;
-    }
-
-    private static int convertToInt(String str) {
-        int res = 0;
-        if (!str.isEmpty() && str != null) {
-            res = Integer.parseInt(str);
-        }
-
-        return res;
+        return strBuilder.toString();
     }
 }
