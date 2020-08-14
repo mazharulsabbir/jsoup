@@ -37,7 +37,7 @@ public class HtmlDataParser {
     }
 
     private void getResult(ArrayList<MediaResource> links, ArrayList<String> imports) {
-        resource = new ArrayList<>();
+        List<Resource> tempDataList = new ArrayList<>();
 
         ArrayList<String> mTag = new ArrayList();
         Elements e = doc.getAllElements();
@@ -92,7 +92,7 @@ public class HtmlDataParser {
                         if (!result.contains(tagText.get(tag).get(tagIndx))) {
                             result.add(tagText.get(tag).get(tagIndx));
 
-                            resource.add(
+                            tempDataList.add(
                                     new Resource(
                                             tag,
                                             tagText.get(tag).get(tagIndx),
@@ -134,9 +134,9 @@ public class HtmlDataParser {
 
 //                    System.out.println("media * " + str);
                     if (!result.contains(strBuilder.toString())) {
-                        result.add(strBuilder.toString());                        
-                        
-                        resource.add(
+                        result.add(strBuilder.toString());
+
+                        tempDataList.add(
                                 new Resource(
                                         tag,
                                         "media",
@@ -155,7 +155,7 @@ public class HtmlDataParser {
 
                     if (!result.contains(imports.get(importIndex))) {
                         result.add(imports.get(importIndex));
-                        resource.add(
+                        tempDataList.add(
                                 new Resource(
                                         tag,
                                         imports.get(importIndex),
@@ -167,6 +167,50 @@ public class HtmlDataParser {
                 }
             }
         } // ends of tag loop
+        resource = new ArrayList<>();
+
+        for (int i = 0; i < tempDataList.size(); i++) {
+            int temp = i + 1;
+
+            Resource current = tempDataList.get(i); // current index data
+
+            if (temp < tempDataList.size()) {
+                Resource next = tempDataList.get(temp); // next data
+
+                String currentText = current.getText();
+                String nextText = next.getText();
+
+                if (currentText.contains(nextText)) { // string matched
+                    int matchIndexStarts = currentText.indexOf(nextText);
+
+                    if ("media".equals(current.getText())) {
+                        resource.add(current);
+                    } else {
+                        String sub = currentText.substring(0, matchIndexStarts);
+                        if (!sub.isEmpty()) {
+                            MediaResource media = current.getMedia();
+
+                            var r = new Resource(current.getTag(), sub, media);
+                            resource.add(r);
+                        }
+                    }
+
+                } else { // not matched
+                    if (next.getText().equals("media") && "a".equals(next.getTag())) {
+                        MediaResource media = next.getMedia();
+
+                        var r = new Resource(current.getTag(), current.getText(), media);
+                        resource.add(r);
+                        i++;
+                    } else {
+                        resource.add(current);
+                    }
+                }
+
+            } else {
+                resource.add(current);
+            }
+        }
     }
 
     private ArrayList<String> printImports(Elements imports) {
