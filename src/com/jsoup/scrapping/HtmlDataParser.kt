@@ -24,6 +24,7 @@ class HtmlDataParser(private val doc: Document) {
         val imports = doc.select("link[href]")
         val urls = doc.select("img[src]~a[href],a[href]~img[src],a[href],[src]")
         parseHtmlToData(getMediaUrls(urls), getImportUrls(imports))
+
         return resource
     }
 
@@ -50,6 +51,7 @@ class HtmlDataParser(private val doc: Document) {
                     && tag != "head"
                     && tag != "div"
                     && tag != "ul"
+                    && tag != "ol"
                     && tag != "#root"
                     && tag != "html")
         }.forEachOrdered { tag: String ->
@@ -157,10 +159,8 @@ class HtmlDataParser(private val doc: Document) {
                             resource!!.add(current)
                         } else {
                             val sub = matchIndexStarts.let { currentText.substring(0, it) }
-                            if (sub.isNotEmpty()) {
-                                val r = Resource(current.tag, sub, current.media)
-                                resource!!.add(r)
-                            }
+                            val r = Resource(current.tag, sub, current.media)
+                            resource!!.add(r)
                         }
                     } else { // not matched
                         if (nextText == MEDIA && "a" == tag) {
