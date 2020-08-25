@@ -82,29 +82,31 @@ object Main {
             tag?.let {
                 if (tag.toLowerCase().trim() == "br" || tag.toLowerCase().trim() == "li" || tag.toLowerCase().trim() == "p") {
                     string.append("\n")
+
                     text?.let {
                         string.append(it).append(" ")
                     }
-                    print(string.toString().replace("\\n".toRegex(), "\n"))
+
+                    print(string.toString())
                     string.clear()
-                }else{
+                } else {
                     text?.let {
-                        string.append(it).append(" ")
+                        if (it != "media")
+                            string.append(it).append(" ")
                     }
                 }
             }
 
             media?.let {
-                println(string.toString() + "\t" + buildImageString(it))
+                if (string.toString().isNotEmpty())
+                    print(string.toString())
+
+                println("\t" + buildImageString(it))
                 string.clear()
             }
         })
 
-        if (string.toString().isNotEmpty()) {
-            println(string.toString())
-        }
-
-        println("")
+        println()
         println("=========================================================================")
     }
 
@@ -121,12 +123,12 @@ object Main {
         data?.height.let {
             strBuilder.append(it)
             strBuilder.append(" x ")
-
         }
 
         data?.width.let {
             strBuilder.append(it)
         }
+
         if (data?.imageName != null) {
             strBuilder.append(" * ")
             strBuilder.append("(").append(data.imageName).append(")")

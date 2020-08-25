@@ -15,6 +15,8 @@ import java.util.function.Consumer
  *
  * @author Sabbir
  */
+const val MEDIA = "media"
+
 class HtmlDataParser(private val doc: Document) {
     private var resource: MutableList<Resource>? = null
 
@@ -65,17 +67,6 @@ class HtmlDataParser(private val doc: Document) {
 
         // ================== data parsing ===================
         for (tag in mTag) {
-            if (tag == "br") {
-                tempDataList.add(
-                        Resource(
-                                tag,
-                                null,
-                                null
-                        )
-                )
-                continue
-            }
-
             if (tagText.containsKey(tag)) {
                 var tagIndx = tagIndex[tag]!!
                 if (tagText[tag]!!.isNotEmpty() && tagText[tag]!!.size > tagIndx) {
@@ -120,7 +111,7 @@ class HtmlDataParser(private val doc: Document) {
                         tempDataList.add(
                                 Resource(
                                         tag,
-                                        "media",
+                                        MEDIA,
                                         data
                                 )
                         )
@@ -145,31 +136,34 @@ class HtmlDataParser(private val doc: Document) {
                 }
             }
         } // ends of tag loop
+
         resource = mutableListOf()
 
         var i = 0
+        val increment = 1
         while (i < tempDataList.size) {
-            val temp = i + 1
+            val temp = i + increment
             val current = tempDataList[i] // current index data
 
             if (temp < tempDataList.size) {
                 val (tag, nextText, media) = tempDataList[temp] // next data
+
                 val currentText = current.text
 
                 if (nextText != null && currentText != null) {
-                    if (nextText.let { currentText.contains(it) }) { // string matched
+                    if (currentText.contains(nextText)) { // string matched
                         val matchIndexStarts = currentText.indexOf(nextText)
-                        if ("media" == current.text) {
+                        if (MEDIA == current.text) {
                             resource!!.add(current)
                         } else {
-                            val sub = matchIndexStarts?.let { currentText.substring(0, it) }
+                            val sub = matchIndexStarts.let { currentText.substring(0, it) }
                             if (sub.isNotEmpty()) {
                                 val r = Resource(current.tag, sub, current.media)
                                 resource!!.add(r)
                             }
                         }
                     } else { // not matched
-                        if (nextText == "media" && "a" == tag) {
+                        if (nextText == MEDIA && "a" == tag) {
                             val r = Resource(current.tag, current.text, media)
                             resource!!.add(r)
                             i++
@@ -177,10 +171,10 @@ class HtmlDataParser(private val doc: Document) {
                             resource!!.add(current)
                         }
                     }
-                } else {
+                } else { // text is null
                     resource!!.add(current)
                 }
-            } else {
+            } else { // last index
                 resource!!.add(current)
             }
             i++
