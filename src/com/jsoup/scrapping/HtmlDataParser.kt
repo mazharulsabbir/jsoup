@@ -7,9 +7,9 @@ package com.jsoup.scrapping
 
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
-import org.jsoup.select.Elements
 import java.util.*
 import java.util.function.Consumer
+import kotlin.collections.HashMap
 
 /**
  *
@@ -18,31 +18,91 @@ import java.util.function.Consumer
 const val MEDIA = "media"
 
 class HtmlDataParser(private val doc: Document) {
-    private var resource: MutableList<Resource>? = null
+
+    private val imports = doc.select("link[href]")
+    private val urls = doc.select("img[src]~a[href],a[href]~img[src],a[href],[src]")
 
     fun getResource(): List<Resource>? {
-        val imports = doc.select("link[href]")
-        val urls = doc.select("img[src]~a[href],a[href]~img[src],a[href],[src]")
-        parseHtmlToData(getMediaUrls(urls), getImportUrls(imports))
+        val tempResource = getResourceByDocument(doc) // can contain duplicate entries
+        val resource = mutableListOf<Resource>()
+
+        var i = 0
+        val increment = 1
+
+        // check & remove duplicates
+        while (i < tempResource.size) {
+            val temp = i + increment
+            val current = tempResource[i] // current index data
+
+            if (temp < tempResource.size) {
+                val (tag, nextText, media) = tempResource[temp] // next data
+
+                val currentText = current.text
+
+                if (nextText != null && currentText != null) {
+                    if (currentText.contains(nextText)) { // string matched
+                        val matchIndexStarts = currentText.indexOf(nextText)
+                        if (MEDIA == current.text) {
+                            resource.add(current)
+                        } else {
+                            val sub = matchIndexStarts.let { currentText.substring(0, it) }
+                            val r = Resource(current.tag, sub, current.media)
+                            resource.add(r)
+                        }
+                    } else { // not matched
+                        if (nextText == MEDIA && "a" == tag) {
+                            val r = Resource(current.tag, current.text, media)
+                            resource.add(r)
+                            i++
+                        } else {
+                            resource.add(current)
+                        }
+                    }
+                } else { // text is null
+                    resource.add(current)
+                }
+            } else { // last index
+                if (i > 1) {
+                    val prev = tempResource[i - 1]
+                    if (prev.text != null && current.text != null) {
+                        if (!prev.text.contains(current.text)) {
+                            resource.add(current)
+                        }
+                    } else {
+                        resource.add(current)
+                    }
+                } else {
+                    resource.add(current)
+                }
+            }
+            i++
+        }
 
         return resource
     }
 
-    private fun parseHtmlToData(links: ArrayList<MediaResource>, imports: ArrayList<String>) {
-        val tempDataList: MutableList<Resource> = ArrayList()
-        val mTag = mutableListOf<String>()
-        val e = doc.allElements
-        val tagText = HashMap<String, List<String>>()
-        val tagIndex: MutableMap<String?, Int> = HashMap()
+    private fun getTagList(doc: Document): List<String> {
+        val element = doc.allElements
+        val tags = mutableListOf<String>()
 
-        e.stream().map { element: Element -> element.tag().toString() }.map { tag: String ->
-            mTag.add(tag)
-            tag
-        }.map { tag: String ->
-            tagIndex.putIfAbsent(tag, 0)
-            tag
-        }.filter { tag: String ->
-            (!tagText.containsKey(tag)
+        element.map {
+            tags.add(it.tagName())
+        }
+
+        return tags
+    }
+
+    private fun getResourceByDocument(doc: Document): List<Resource> {
+        val tagText = hashMapOf<String, List<String?>>()
+        val tagIndexMap = hashMapOf<String, Int>()
+        val tags = getTagList(doc)
+
+        tags.map { tag ->
+            if (!tagIndexMap.containsKey(tag))
+                tagIndexMap[tag] = 0
+
+            // ignore those tags
+            if (!tagText.containsKey(tag)
                     && tag != "a"
                     && tag != "img"
                     && tag != "iframe"
@@ -50,45 +110,50 @@ class HtmlDataParser(private val doc: Document) {
                     && tag != "body"
                     && tag != "head"
                     && tag != "div"
-                    && tag != "ul"
-                    && tag != "ol"
                     && tag != "#root"
-                    && tag != "html")
-        }.forEachOrdered { tag: String ->
-            // not an image or link or iframe
-            val data = doc.getElementsByTag(tag)
-            val array: MutableList<String> = ArrayList()
-            data.forEach(Consumer { text: Element -> array.add(text.text()) })
-            tagText.putIfAbsent(tag, array)
+                    && tag != "html"
+            ) {
+                val data = doc.getElementsByTag(tag)
+                val array: MutableList<String> = ArrayList()
+                data.forEach(Consumer { text: Element -> array.add(text.text()) })
+                tagText.putIfAbsent(tag, array)
+            }
         }
 
-        val textDocs = HashMap<String?, String>()
-        var index = 0
-        var importIndex = 0
-        val result: MutableList<String> = ArrayList()
+        return getTempDataList(tags, tagText, tagIndexMap)
+    }
 
-        // ================== data parsing ===================
-        for (tag in mTag) {
-            if (tagText.containsKey(tag)) {
-                var tagIndx = tagIndex[tag]!!
-                if (tagText[tag]!!.isNotEmpty() && tagText[tag]!!.size > tagIndx) {
-                    if (tagText[tag]!![tagIndx].isNotEmpty()) {
-                        if (!result.contains(tagText[tag]!![tagIndx])) {
-                            result.add(tagText[tag]!![tagIndx])
+    private fun getTempDataList(
+            tags: List<String>,
+            tagTextMap: HashMap<String, List<String?>>,
+            tagIndexMap: HashMap<String, Int>
+    ): List<Resource> {
+        val tempDataList = mutableListOf<Resource>()
+        val imports = getImportUrls()
+        val links = getMediaUrls()
+
+        val textDocs = HashMap<String, String?>()
+        var index = 0
+        var importIndexCount = 0
+        val result = mutableListOf<String>()
+
+        tags.map { tag ->
+            if (tagTextMap.containsKey(tag)) {
+                var tagIndexCount = tagIndexMap[tag]!!
+                if (!tagTextMap[tag].isNullOrEmpty() && tagTextMap[tag]!!.size > tagIndexCount) {
+                    if (tagTextMap[tag]!![tagIndexCount]?.isNotEmpty()!!) {
+                        if (!result.contains(tagTextMap[tag]!![tagIndexCount])) {
+                            tagTextMap[tag]!![tagIndexCount]?.let { result.add(it) }
                             tempDataList.add(
-                                    Resource(
-                                            tag,
-                                            tagText[tag]!![tagIndx],
-                                            null
-                                    )
+                                    Resource(tag, tagTextMap[tag]!![tagIndexCount], null)
                             )
                         }
                     }
 
                     // update contents
-                    textDocs[tag] = tagText[tag]!![tagIndx]
-                    tagIndx++
-                    tagIndex.replace(tag, tagIndx) // update tag index
+                    textDocs[tag] = tagTextMap[tag]!![tagIndexCount]
+                    tagIndexCount++
+                    tagIndexMap.replace(tag, tagIndexCount) // update tag index
                 }
             } else if ("img" == tag || "iframe" == tag || "a" == tag) {
                 if (index < links.size) {
@@ -111,77 +176,29 @@ class HtmlDataParser(private val doc: Document) {
                     if (!result.contains(strBuilder.toString())) {
                         result.add(strBuilder.toString())
                         tempDataList.add(
-                                Resource(
-                                        tag,
-                                        MEDIA,
-                                        data
-                                )
+                                Resource(tag, MEDIA, data)
                         )
                         index++
                     }
                 }
 
             } else if ("link" == tag) {
-                if (importIndex < imports.size) {
-//                    System.out.println("imports * " + imports.get(importIndex));
-                    if (!result.contains(imports[importIndex])) {
-                        result.add(imports[importIndex])
+                if (importIndexCount < imports.size) {
+                    if (!result.contains(imports[importIndexCount])) {
+                        result.add(imports[importIndexCount])
                         tempDataList.add(
-                                Resource(
-                                        tag,
-                                        imports[importIndex],
-                                        null
-                                )
+                                Resource(tag, imports[importIndexCount], null)
                         )
-                        importIndex++
+                        importIndexCount++
                     }
                 }
             }
-        } // ends of tag loop
-
-        resource = mutableListOf()
-
-        var i = 0
-        val increment = 1
-        while (i < tempDataList.size) {
-            val temp = i + increment
-            val current = tempDataList[i] // current index data
-
-            if (temp < tempDataList.size) {
-                val (tag, nextText, media) = tempDataList[temp] // next data
-
-                val currentText = current.text
-
-                if (nextText != null && currentText != null) {
-                    if (currentText.contains(nextText)) { // string matched
-                        val matchIndexStarts = currentText.indexOf(nextText)
-                        if (MEDIA == current.text) {
-                            resource!!.add(current)
-                        } else {
-                            val sub = matchIndexStarts.let { currentText.substring(0, it) }
-                            val r = Resource(current.tag, sub, current.media)
-                            resource!!.add(r)
-                        }
-                    } else { // not matched
-                        if (nextText == MEDIA && "a" == tag) {
-                            val r = Resource(current.tag, current.text, media)
-                            resource!!.add(r)
-                            i++
-                        } else {
-                            resource!!.add(current)
-                        }
-                    }
-                } else { // text is null
-                    resource!!.add(current)
-                }
-            } else { // last index
-                resource!!.add(current)
-            }
-            i++
         }
+
+        return tempDataList
     }
 
-    private fun getImportUrls(imports: Elements): ArrayList<String> {
+    private fun getImportUrls(): ArrayList<String> {
         val mImports = ArrayList<String>()
 
 //        System.out.println("Imports: " + imports.size());
@@ -192,7 +209,7 @@ class HtmlDataParser(private val doc: Document) {
         return mImports
     }
 
-    private fun getMediaUrls(urls: Elements): ArrayList<MediaResource> {
+    private fun getMediaUrls(): ArrayList<MediaResource> {
         val hrefSets: MutableSet<String> = HashSet()
         val srcSets: MutableSet<String?> = HashSet()
         val links = ArrayList<MediaResource>()

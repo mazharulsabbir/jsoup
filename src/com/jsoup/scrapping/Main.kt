@@ -83,10 +83,7 @@ object Main {
             tag?.let {
                 if (tag.toLowerCase().trim() == "br" ||
                         tag.toLowerCase().trim() == "li" ||
-                        tag.toLowerCase().trim() == "table" ||
-                        tag.toLowerCase().trim() == "p" ||
-                        tag.toLowerCase().trim() == "thead" ||
-                        tag.toLowerCase().trim() == "caption"
+                        tag.toLowerCase().trim() == "p"
                 ) {
                     string.append("\n")
 
@@ -98,7 +95,7 @@ object Main {
                     string.clear()
                 } else {
                     text?.let {
-                        if (it != "media")
+                        if (it != MEDIA)
                             string.append(it).append(" ")
                     }
                 }
@@ -112,6 +109,8 @@ object Main {
                 string.clear()
             }
         })
+
+        if (string.toString().isNotEmpty()) println(string.toString())
 
         println()
         println("=========================================================================")
