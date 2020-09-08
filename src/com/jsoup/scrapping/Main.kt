@@ -20,7 +20,6 @@ object Main {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        // TODO code application logic here
         val htmls = arrayOf(
                 "<img src=\\\"http://cpelearn.daffodilvarsity.edu.bd/webservice/pluginfile.php/377045/course/section/56697/Banner-3.png\\\" alt=\\\"\\\" width=\\\"1280\\\" height=\\\"393\\\" role=\\\"presentation\\\" class=\\\"img-responsive atto_image_button_text-top\\\">",
                 "<p><img src=\\\"http://cpelearn.daffodilvarsity.edu.bd/webservice/pluginfile.php/377045/course/section/89948/Banner-5.png\\\" alt=\\\"\\\" width=\\\"1280\\\" height=\\\"370\\\" role=\\\"presentation\\\" class=\\\"img-responsive atto_image_button_text-top\\\"><br></p>",
@@ -36,7 +35,6 @@ object Main {
                 "<p><img src=\"http://cpelearn.daffodilvarsity.edu.bd/webservice/pluginfile.php/377045/course/section/90035/Assignment-3.png\" alt=\"\" width=\"588\" height=\"211\" role=\"presentation\" class=\"img-responsive atto_image_button_text-top\"><br></p>",
                 "<p><img src=\"http://cpelearn.daffodilvarsity.edu.bd/webservice/pluginfile.php/377045/course/section/86359/feedback-3.jpg\" alt=\"\" width=\"750\" height=\"198\" role=\"presentation\" class=\"img-responsive atto_image_button_text-top\"><br></p>",
                 "<h5></h5><img src=\"http://cpelearn.daffodilvarsity.edu.bd/webservice/pluginfile.php/377045/course/section/56699/Introductory%20Banner.png\" alt=\"\" width=\"1280\" height=\"203\" role=\"presentation\" class=\"img-responsive atto_image_button_text-bottom\"><br><p></p>",
-                "<div class=\"no-overflow\"><p></p>\r\n<h5><img src=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/382827/mod_label/intro/Lecture-1.png?time=1589855211583\" alt=\"\" width=\"1250\" height=\"451\" role=\"presentation\" class=\"img-responsive atto_image_button_text-top\"><br></h5>\r\n<p></p>\r\n<ul>\r\n    <li><span><span><span><span class=\"\" style=\"color: rgb(41, 128, 185);\"><span class=\"\" style=\"color: rgb(41, 128, 185);\"><a href=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/382827/mod_label/intro/Lecture-1.pdf?time=1590834777538\" target=\"_blank\">Lecture Slide</a></span></span></span></span></span></li><li><span><span><span><span class=\"\" style=\"color: rgb(41, 128, 185);\"><span class=\"\" style=\"color: rgb(41, 128, 185);\">Video Slide</span></span>\r\n        </span><span class=\"\" style=\"color: rgb(41, 128, 185);\"></span></span><span class=\"\" style=\"color: rgb(41, 128, 185);\"></span></span><span class=\"\" style=\"color: rgb(41, 128, 185);\"></span></li><iframe src=\"https://drive.google.com/file/d/1L0NGZZ85tJIKaZftkiVSbS6T103ifwX2/preview\" width=\"600\" height=\"480\"></iframe></ul>\r\n<ul>\r\n    <li><span><span><span><span class=\"\" style=\"color: rgb(41, 128, 185);\"><a href=\"https://www.menti.com/xc8n16fhq4\" target=\"_blank\">A simple question needs answer</a></span></span>\r\n        </span>\r\n        </span>\r\n    </li>\r\n</ul>\r\n<ul>\r\n    <li><span class=\"\" style=\"font-size: 1rem; color: rgb(41, 128, 185);\"><span style=\"background-color: rgb(255, 255, 255); font-size: 1rem;\">Animated Video on Definition of Embedded Systems</span></span><span style=\"font-size: 1rem; color: rgb(41, 128, 185);\">&nbsp;</span></li>\r\n    <iframe src=\"https://drive.google.com/file/d/1Iu8iN2jlkSNKGdzD3nO-plrQkR7uiTXr/preview\" width=\"600\" height=\"480\"></iframe>\r\n</ul>\r\n<ul>\r\n    <li><span class=\"\" style=\"color: rgb(41, 128, 185);\"><span class=\"\" style=\"color: rgb(41, 128, 185);\">Self Assessment (Watch the video and answer the question)</span><iframe width=\"600\" height=\"480\" src=\"https://edpuzzle.com/embed/media/5ebbc2315fd3b23e858dc97c\" frameborder=\"0\" allowfullscreen=\"\"></iframe></span></li></ul>\r\n<p></p>\r\n<p></p>\r\n<p></p>\r\n<p></p>\r\n<p></p></div>", "<div class=\"no-overflow\"><p></p>\r\n<h5><img src=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/382827/mod_label/intro/Lecture-1.png?time=1589855211583\" alt=\"\" width=\"1250\" height=\"451\" role=\"presentation\" class=\"img-responsive atto_image_button_text-top\"><br></h5>\r\n<p></p>\r\n<ul>\r\n    <li><span><span><span><span class=\"\" style=\"color: rgb(41, 128, 185);\"><span class=\"\" style=\"color: rgb(41, 128, 185);\"><a href=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/382827/mod_label/intro/Lecture-1.pdf?time=1590834777538\" target=\"_blank\">Lecture Slide</a></span></span></span></span></span></li><li><span><span><span><span class=\"\" style=\"color: rgb(41, 128, 185);\"><span class=\"\" style=\"color: rgb(41, 128, 185);\">Video Slide</span></span>\r\n        </span><span class=\"\" style=\"color: rgb(41, 128, 185);\"></span></span><span class=\"\" style=\"color: rgb(41, 128, 185);\"></span></span><span class=\"\" style=\"color: rgb(41, 128, 185);\"></span></li><iframe src=\"https://drive.google.com/file/d/1L0NGZZ85tJIKaZftkiVSbS6T103ifwX2/preview\" width=\"600\" height=\"480\"></iframe></ul>\r\n<ul>\r\n    <li><span><span><span><span class=\"\" style=\"color: rgb(41, 128, 185);\"><a href=\"https://www.menti.com/xc8n16fhq4\" target=\"_blank\">A simple question needs answer</a></span></span>\r\n        </span>\r\n        </span>\r\n    </li>\r\n</ul>\r\n<ul>\r\n    <li><span class=\"\" style=\"font-size: 1rem; color: rgb(41, 128, 185);\"><span style=\"background-color: rgb(255, 255, 255); font-size: 1rem;\">Animated Video on Definition of Embedded Systems</span></span><span style=\"font-size: 1rem; color: rgb(41, 128, 185);\">&nbsp;</span></li>\r\n    <iframe src=\"https://drive.google.com/file/d/1Iu8iN2jlkSNKGdzD3nO-plrQkR7uiTXr/preview\" width=\"600\" height=\"480\"></iframe>\r\n</ul>\r\n<ul>\r\n    <li><span class=\"\" style=\"color: rgb(41, 128, 185);\"><span class=\"\" style=\"color: rgb(41, 128, 185);\">Self Assessment (Watch the video and answer the question)</span><iframe width=\"600\" height=\"480\" src=\"https://edpuzzle.com/embed/media/5ebbc2315fd3b23e858dc97c\" frameborder=\"0\" allowfullscreen=\"\"></iframe></span></li></ul>\r\n<p></p>\r\n<p></p>\r\n<p></p>\r\n<p></p>\r\n<p></p></div>",
                 "<div class=\"no-overflow\"><p></p>\r\n<h5><img src=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/391302/mod_label/intro/Lecture-2.png\" alt=\"\" width=\"1244\" height=\"426\" role=\"presentation\" class=\"img-responsive atto_image_button_text-top\"><br></h5><ul>\r\n</ul>\r\n<p></p>\r\n<p><b><span>Reading Materials:</span></b><br></p>\r\n<p></p>\r\n<ul>\r\n    <li><span><span class=\"\" style=\"color: rgb(39, 174, 96);\"><span class=\"\" style=\"color: rgb(39, 174, 96);\"><a href=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/391302/mod_label/intro/Lecture-2.pdf?time=1590838502526\" target=\"_blank\"><span class=\"\" style=\"color: rgb(39, 174, 96);\">Lecture Slide</span></a></span></span></span></li><li><span><span class=\"\" style=\"color: rgb(39, 174, 96);\"><span class=\"\" style=\"color: rgb(39, 174, 96);\"><span class=\"\" style=\"color: rgb(39, 174, 96);\"><a href=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/391302/mod_label/intro/Lecture-2.pdf?time=1588394176495\" target=\"_blank\"><span class=\"\" style=\"color: rgb(39, 174, 96);\">Video Slide</span></a></span></span></span>\r\n        </span>\r\n    </li>\r\n</ul><iframe src=\"https://drive.google.com/file/d/1gPemladkysvP9uHpi4wHaqQxHbUbvWRP/preview\" width=\"640\" height=\"480\"></iframe></div>",
                 "<div class=\"no-overflow\"><p><img src=\"http://cpelearn.daffodilvarsity.edu.bd/pluginfile.php/588848/mod_label/intro/Mock%20Test.jpg\" alt=\"\" width=\"705\" height=\"352\" role=\"presentation\" class=\"img-responsive atto_image_button_text-top\"><br></p></div>",
                 "<p><img src=\"http://cpelearn.daffodilvarsity.edu.bd/webservice/pluginfile.php/377045/course/section/59228/Class%20Test-1%20-%20Copy.png\" alt=\"\" width=\"800\" height=\"300\" role=\"presentation\" class=\"atto_image_button_text-top\"><br></p>",
@@ -66,53 +64,20 @@ object Main {
                 "<div class=\\\"no-overflow\\\"><p></p>\\r\\n<p><strong><u><span class=\\\"\\\" style=\\\"color: rgb(205, 97, 85);\\\">Final Exam Syllabus:</span></u></strong></p>\\r\\n<p>The syllabus for final exam includes&nbsp; all the lectures (1-16)</p>\\r\\n<p><strong><u><span class=\\\"\\\" style=\\\"color: rgb(205, 97, 85);\\\">Final Exam Assessment Plan:</span></u></strong><br></p>\\r\\n<p></p>\\r\\n<ul>\\r\\n    <li><span>5 Questions with equal marks distribution will be given</span></li>\\r\\n    <li>Each question will contain two parts</li>\\r\\n    <li>The question will be related to theoretical knowledge along with the practical implementation based on a real life scenario.</li>\\r\\n</ul><strong><u><span class=\\\"\\\" style=\\\"color: rgb(205, 97, 85);\\\">Final Exam Guideline:<br><img src=\\\"https://elearn.daffodilvarsity.edu.bd/pluginfile.php/391342/mod_label/intro/img_mv.jpg\\\" alt=\\\"\\\" width=\\\"1000\\\" height=\\\"457\\\" role=\\\"presentation\\\" class=\\\"img-responsive atto_image_button_text-bottom\\\"><br></span></u></strong><a href=\\\"https://elearn.daffodilvarsity.edu.bd/pluginfile.php/391342/mod_label/intro/Open%20Book%20Exam%20Guideline%20CSE-Student-August-2020.pdf?time=1598282945760\\\" target=\\\"_blank\\\">Click Here</a><br><br>\\r\\n<p></p></div>"
         )
 
-        for (i in htmls.indices) {
-            val html = htmls[i]
-            htmlToData(html)
-        }
-
+//        for (i in htmls.indices) {
+//            val html = htmls[i]
+//            htmlToData(html)
+//        }
+        htmlToData(htmls[htmls.size - 2])
     }
 
     private fun htmlToData(html: String) {
         val doc = Jsoup.parse(html.replace(REPlACE_WHITE_SPACE.toRegex(), ""))
+//        doc.select("span").unwrap()
+
         val parser = HtmlDataParser(doc)
+        parser.getResources()
 
-        val string = StringBuilder()
-
-        parser.getResource()?.forEach(Consumer { (tag, text, media) ->
-            tag?.let {
-                if (tag.toLowerCase().trim() == "br" ||
-                        tag.toLowerCase().trim() == "li" ||
-                        tag.toLowerCase().trim() == "p"
-                ) {
-                    string.append("\n")
-
-                    text?.let {
-                        string.append(it).append(" ")
-                    }
-
-                    print(string.toString())
-                    string.clear()
-                } else {
-                    text?.let {
-                        if (it != MEDIA)
-                            string.append(it).append(" ")
-                    }
-                }
-            }
-
-            media?.let {
-                if (string.toString().isNotEmpty())
-                    print(string.toString())
-
-                println("\t" + buildImageString(it))
-                string.clear()
-            }
-        })
-
-        if (string.toString().isNotEmpty()) println(string.toString())
-
-        println()
         println("=========================================================================")
     }
 
