@@ -64,46 +64,19 @@ object Main {
                 "<div class=\\\"no-overflow\\\"><p></p>\\r\\n<p><strong><u><span class=\\\"\\\" style=\\\"color: rgb(205, 97, 85);\\\">Final Exam Syllabus:</span></u></strong></p>\\r\\n<p>The syllabus for final exam includes&nbsp; all the lectures (1-16)</p>\\r\\n<p><strong><u><span class=\\\"\\\" style=\\\"color: rgb(205, 97, 85);\\\">Final Exam Assessment Plan:</span></u></strong><br></p>\\r\\n<p></p>\\r\\n<ul>\\r\\n    <li><span>5 Questions with equal marks distribution will be given</span></li>\\r\\n    <li>Each question will contain two parts</li>\\r\\n    <li>The question will be related to theoretical knowledge along with the practical implementation based on a real life scenario.</li>\\r\\n</ul><strong><u><span class=\\\"\\\" style=\\\"color: rgb(205, 97, 85);\\\">Final Exam Guideline:<br><img src=\\\"https://elearn.daffodilvarsity.edu.bd/pluginfile.php/391342/mod_label/intro/img_mv.jpg\\\" alt=\\\"\\\" width=\\\"1000\\\" height=\\\"457\\\" role=\\\"presentation\\\" class=\\\"img-responsive atto_image_button_text-bottom\\\"><br></span></u></strong><a href=\\\"https://elearn.daffodilvarsity.edu.bd/pluginfile.php/391342/mod_label/intro/Open%20Book%20Exam%20Guideline%20CSE-Student-August-2020.pdf?time=1598282945760\\\" target=\\\"_blank\\\">Click Here</a><br><br>\\r\\n<p></p></div>"
         )
 
-//        for (i in htmls.indices) {
-//            val html = htmls[i]
-//            htmlToData(html)
-//        }
-        htmlToData(htmls[htmls.size - 2])
+        for (i in htmls.indices) {
+            val html = htmls[i]
+            htmlToData(html)
+        }
+//        htmlToData(htmls[htmls.size - 2])
     }
 
     private fun htmlToData(html: String) {
         val doc = Jsoup.parse(html.replace(REPlACE_WHITE_SPACE.toRegex(), ""))
-//        doc.select("span").unwrap()
 
         val parser = HtmlDataParser(doc)
         parser.getResources()
 
         println("=========================================================================")
-    }
-
-    private fun buildImageString(data: MediaResource?): String {
-        val strBuilder = StringBuilder()
-        if (data?.imageSrc != null) {
-            strBuilder.append(data.imageSrc)
-            strBuilder.append(" * ")
-        }
-        if (data?.imageHref != null) {
-            strBuilder.append(data.imageHref)
-            strBuilder.append(" * ")
-        }
-        data?.height.let {
-            strBuilder.append(it)
-            strBuilder.append(" x ")
-        }
-
-        data?.width.let {
-            strBuilder.append(it)
-        }
-
-        if (data?.imageName != null) {
-            strBuilder.append(" * ")
-            strBuilder.append("(").append(data.imageName).append(")")
-        }
-        return strBuilder.toString()
     }
 }

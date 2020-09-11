@@ -15,59 +15,15 @@ import kotlin.collections.HashMap
  *
  * @author Sabbir
  */
-const val MEDIA_FILES = "embedded_media"
-const val LINKS_CSS_QUERY = "link[href]"
-const val SRC_CSS_QUERY = "img[src]~a[href],a[href]~img[src],a[href],[src]"
 
-/* block level elements: <address><article><aside><blockquote><canvas><dd><div><dl><dt><fieldset><figcaption><figure><footer><form><h1>-<h6><header><hr><li><main><nav><noscript><ol><p><pre><section><table><tfoot><ul><video>*/
-/* inline level elements: <a><abbr><acronym><b><bdo><big><br><button><cite><code><dfn><em><i><img><input><kbd><label><map><object><output><q><samp><script><select><small><span><strong><sub><sup><textarea><time><tt><var>*/
+private const val BODY = "body"
 
 class HtmlDataParser(private val doc: Document) {
-    private val blockLevelElements = arrayOf(
-            "hr",
-            "table",
-            "video",
-            "ul",
-            "tfoot",
-            "section",
-            "li",
-            "main",
-            "nav",
-            "noscript",
-            "ol",
-            "p",
-            "pre",
-            "address",
-            "article",
-            "aside",
-            "blockquote",
-            "canvas",
-            "dd",
-            "div",
-            "dl",
-            "dt",
-            "fieldset",
-            "figcaption",
-            "figure",
-            "footer",
-            "form",
-            "h1",
-            "h2",
-            "h3",
-            "h4",
-            "h5",
-            "h6",
-            "header",
-            "br"
-    )
-
-    private val imports = doc.select(LINKS_CSS_QUERY)
-    private val urls = doc.select(SRC_CSS_QUERY)
 
     fun getResources(): List<Resource> {
         val resource = mutableListOf<Resource>()
 
-        val elements = doc.getElementsByTag("body")
+        val elements = doc.getElementsByTag(BODY)
         if (elements.isNotEmpty()) {
             // todo: use string builder to add strings for inline level elements and add line break for block level elements
             val stringBuilder = StringBuilder()
@@ -92,7 +48,7 @@ class HtmlDataParser(private val doc: Document) {
 
                         if (blockLevelElements.contains(it.tagName())) {
                             stringBuilder.append("\n")
-                        }
+                        }else stringBuilder.append(" ")
                     }
                 } else {
                     if (blockLevelElements.contains(element.tagName())) {
@@ -111,7 +67,7 @@ class HtmlDataParser(private val doc: Document) {
 
                     if (blockLevelElements.contains(element.tagName())) {
                         stringBuilder.append("\n")
-                    }
+                    }else stringBuilder.append(" ")
                 }
 
                 println(stringBuilder.toString())
@@ -119,5 +75,48 @@ class HtmlDataParser(private val doc: Document) {
         }
 
         return resource
+    }
+
+    companion object {
+        private const val MEDIA_FILES = "embedded_media"
+        private const val LINKS_CSS_QUERY = "link[href]"
+        private const val SRC_CSS_QUERY = "img[src]~a[href],a[href]~img[src],a[href],[src]"
+        private val blockLevelElements = arrayOf(
+                "hr",
+                "table",
+                "video",
+                "ul",
+                "tfoot",
+                "section",
+                "li",
+                "main",
+                "nav",
+                "noscript",
+                "ol",
+                "p",
+                "pre",
+                "address",
+                "article",
+                "aside",
+                "blockquote",
+                "canvas",
+                "dd",
+                "div",
+                "dl",
+                "dt",
+                "fieldset",
+                "figcaption",
+                "figure",
+                "footer",
+                "form",
+                "h1",
+                "h2",
+                "h3",
+                "h4",
+                "h5",
+                "h6",
+                "header",
+                "br"
+        )
     }
 }
