@@ -7,7 +7,6 @@ package com.jsoup.scrapping
 
 import com.jsoup.scrapping.HtmlDataParser.Companion.blockLevelElements
 import org.jsoup.Jsoup
-import java.util.function.Consumer
 
 /**
  *
@@ -21,7 +20,7 @@ object Main {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        val htmls = arrayOf(
+        val htmlArray = arrayOf(
                 "<img src=\\\"http://cpelearn.daffodilvarsity.edu.bd/webservice/pluginfile.php/377045/course/section/56697/Banner-3.png\\\" alt=\\\"\\\" width=\\\"1280\\\" height=\\\"393\\\" role=\\\"presentation\\\" class=\\\"img-responsive atto_image_button_text-top\\\">",
                 "<p><img src=\\\"http://cpelearn.daffodilvarsity.edu.bd/webservice/pluginfile.php/377045/course/section/89948/Banner-5.png\\\" alt=\\\"\\\" width=\\\"1280\\\" height=\\\"370\\\" role=\\\"presentation\\\" class=\\\"img-responsive atto_image_button_text-top\\\"><br></p>",
                 "<div class=\"no-overflow\"><p><iframe src=\"https://calendar.google.com/calendar/embed?height=300&amp;wkst=7&amp;bgcolor=%23F09300&amp;ctz=Asia%2FDhaka&amp;src=ZGl1LmVkdS5iZF8wcXVic2NkanJsb2gyaTVxaWdsMDhqYXRrNEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%23B39DDB&amp;showTz=0&amp;showCalendars=0&amp;showNav=1\" style=\"border-width:0\" width=\"780\" height=\"300\" frameborder=\"0\" scrolling=\"no\"></iframe><br></p></div>",
@@ -65,19 +64,19 @@ object Main {
                 "<div class=\\\"no-overflow\\\"><p></p>\\r\\n<p><strong><u><span class=\\\"\\\" style=\\\"color: rgb(205, 97, 85);\\\">Final Exam Syllabus:</span></u></strong></p>\\r\\n<p>The syllabus for final exam includes&nbsp; all the lectures (1-16)</p>\\r\\n<p><strong><u><span class=\\\"\\\" style=\\\"color: rgb(205, 97, 85);\\\">Final Exam Assessment Plan:</span></u></strong><br></p>\\r\\n<p></p>\\r\\n<ul>\\r\\n    <li><span>5 Questions with equal marks distribution will be given</span></li>\\r\\n    <li>Each question will contain two parts</li>\\r\\n    <li>The question will be related to theoretical knowledge along with the practical implementation based on a real life scenario.</li>\\r\\n</ul><strong><u><span class=\\\"\\\" style=\\\"color: rgb(205, 97, 85);\\\">Final Exam Guideline:<br><img src=\\\"https://elearn.daffodilvarsity.edu.bd/pluginfile.php/391342/mod_label/intro/img_mv.jpg\\\" alt=\\\"\\\" width=\\\"1000\\\" height=\\\"457\\\" role=\\\"presentation\\\" class=\\\"img-responsive atto_image_button_text-bottom\\\"><br></span></u></strong><a href=\\\"https://elearn.daffodilvarsity.edu.bd/pluginfile.php/391342/mod_label/intro/Open%20Book%20Exam%20Guideline%20CSE-Student-August-2020.pdf?time=1598282945760\\\" target=\\\"_blank\\\">Click Here</a><br><br>\\r\\n<p></p></div>"
         )
 
-        for (i in htmls.indices) {
-            val html = htmls[i]
-            htmlToData(html)
+        for (i in htmlArray.indices) {
+            val html = htmlArray[i]
+            parseHtml(html)
         }
     }
 
-    private fun htmlToData(html: String) {
+    private fun parseHtml(html: String) {
         val doc = Jsoup.parse(html.replace(REPlACE_WHITE_SPACE.toRegex(), ""))
 
         val parser = HtmlDataParser(doc)
         parser.getResources().distinctBy { it.resourceText }.forEach { resource ->
             resource.resourceText?.let {
-                println(it)
+                println("<${resource.tagName}> $it")
             }
             if (blockLevelElements.contains(resource.tagName)) println()
         }
