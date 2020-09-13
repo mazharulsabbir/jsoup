@@ -9,4 +9,22 @@ package com.jsoup.scrapping
  *
  * @author Sabbir
  */
-data class Resource(val tag: String?, val text: String?, val media: MediaResource?)
+data class Resource(
+        var tagName: String?,
+        var resourceText: String?,
+        var mediaName: String?,
+        var mediaSrc: String?,
+        var mediaHref: String?,
+        var mediaheight: Int? = 0,
+        var mediawidth: Int? = 0
+) {
+    constructor() : this(
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+    )
+}

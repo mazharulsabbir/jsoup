@@ -5,6 +5,7 @@
  */
 package com.jsoup.scrapping
 
+import com.jsoup.scrapping.HtmlDataParser.Companion.blockLevelElements
 import org.jsoup.Jsoup
 import java.util.function.Consumer
 
@@ -68,14 +69,18 @@ object Main {
             val html = htmls[i]
             htmlToData(html)
         }
-//        htmlToData(htmls[htmls.size - 2])
     }
 
     private fun htmlToData(html: String) {
         val doc = Jsoup.parse(html.replace(REPlACE_WHITE_SPACE.toRegex(), ""))
 
         val parser = HtmlDataParser(doc)
-        parser.getResources()
+        parser.getResources().distinctBy { it.resourceText }.forEach { resource ->
+            resource.resourceText?.let {
+                println(it)
+            }
+            if (blockLevelElements.contains(resource.tagName)) println()
+        }
 
         println("=========================================================================")
     }
