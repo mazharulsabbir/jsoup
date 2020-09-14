@@ -29,20 +29,31 @@ class HtmlDataParser(private val doc: Document) {
         val mElementText = StringBuilder()
         mElementText.append(elements.text())
 
+        val mElementOwnText = mutableListOf<String>()
+        val builder = StringBuilder()
+
         elements.forEach {
             it.allElements.forEach { element ->
-                if (element.tagName() == "br") {
-                    println(element.ownText())
+                element.ownText()?.let { str ->
+                    builder.append(str)
+                    if (blockLevelElements.contains(element.tagName())) {
+                        mElementOwnText.add(builder.toString())
+                        builder.clear()
+                    }
                 }
-//                println(element.ownText()) // current tag text only. eg. <p>Hello<span> World</span></p> | output: Hello
-
-                val matchIndex = mElementText.indexOf(element.text())
-                if (blockLevelElements.contains(element.tagName()))
-                    mElementText.insert(matchIndex, "\n")
             }
         }
 
-//        println(mElementText.trim())
+        mElementOwnText.forEach {
+            val matchIndex = mElementText.trim().indexOf(it.trim())
+            if(it.trim().isNotEmpty()){
+                println("$it Index: $matchIndex Contains:${mElementText.contains(it, true)}")
+            }
+            if (matchIndex > 0)
+                mElementText.insert(matchIndex, "\n")
+        }
+
+//        println(mElementText)
 
         return data
     }
