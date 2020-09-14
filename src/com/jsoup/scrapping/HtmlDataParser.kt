@@ -7,6 +7,7 @@ package com.jsoup.scrapping
 
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
+import java.lang.StringBuilder
 import java.util.*
 import java.util.function.Consumer
 import kotlin.collections.HashMap
@@ -24,39 +25,19 @@ class HtmlDataParser(private val doc: Document) {
 
     fun getResources(): List<Resource> {
         val elements = doc.getElementsByTag(BODY)
+        val mElementText = StringBuilder()
+        mElementText.append(elements.text())
 
-        if (elements.isNotEmpty()) {
-            elements.forEach { element ->
-                if (element.childrenSize() > 0) {
-                    element.allElements.forEach { element1 ->
-                        getDataFromElement(element1)
-                    }
-                } else {
-                    getDataFromElement(element)
-                }
+        elements.forEach {
+            it.allElements.forEach { element ->
+                val matchIndex = mElementText.indexOf(element.text())
+                mElementText.insert(matchIndex, "\n")
             }
         }
+
+        println(mElementText)
 
         return data
-    }
-
-    private fun getDataFromElement(element: Element) {
-        if (element.tagName() != "body" && element.tagName() != "div") {
-            val resource = Resource()
-            resource.tagName = element.tagName()
-
-            element.select(LINKS_CSS_QUERY).first()?.let {
-                resource.mediaHref = it.text()
-            }
-            element.select(SRC_CSS_QUERY).first()?.let {
-                resource.mediaSrc = it.text()
-            }
-            if (element.text().isNotEmpty()) {
-                resource.resourceText = element.text()
-            }
-
-            data.add(resource)
-        }
     }
 
     companion object {

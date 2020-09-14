@@ -75,9 +75,9 @@ object Main {
 
         val parser = HtmlDataParser(doc)
         parser.getResources().distinctBy { it.resourceText }.forEach { resource ->
-            resource.resourceText?.let {
-                println("<${resource.tagName}> $it")
-            }
+            if (blockLevelElements.contains(resource.tagName)) println()
+
+            print("<${resource.tagName}> ${resource.resourceText}")
             if (blockLevelElements.contains(resource.tagName)) println()
         }
 
