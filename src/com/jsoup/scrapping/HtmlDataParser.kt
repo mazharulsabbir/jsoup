@@ -7,6 +7,7 @@ package com.jsoup.scrapping
 
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
+import org.jsoup.nodes.Node
 import java.lang.StringBuilder
 import java.util.*
 import java.util.function.Consumer
@@ -30,13 +31,18 @@ class HtmlDataParser(private val doc: Document) {
 
         elements.forEach {
             it.allElements.forEach { element ->
+                if (element.tagName() == "br") {
+                    println(element.ownText())
+                }
+//                println(element.ownText()) // current tag text only. eg. <p>Hello<span> World</span></p> | output: Hello
+
                 val matchIndex = mElementText.indexOf(element.text())
                 if (blockLevelElements.contains(element.tagName()))
                     mElementText.insert(matchIndex, "\n")
             }
         }
 
-        println(mElementText.trim())
+//        println(mElementText.trim())
 
         return data
     }

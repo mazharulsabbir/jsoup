@@ -7,6 +7,7 @@ package com.jsoup.scrapping
 
 import com.jsoup.scrapping.HtmlDataParser.Companion.blockLevelElements
 import org.jsoup.Jsoup
+import org.jsoup.nodes.Node
 
 /**
  *
