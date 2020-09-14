@@ -7,12 +7,7 @@ package com.jsoup.scrapping
 
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
-import org.jsoup.nodes.Node
 import java.lang.StringBuilder
-import java.util.*
-import java.util.function.Consumer
-import kotlin.collections.HashMap
-import kotlin.collections.HashSet
 
 /**
  *
@@ -26,36 +21,49 @@ class HtmlDataParser(private val doc: Document) {
 
     fun getResources(): List<Resource> {
         val elements = doc.getElementsByTag(BODY)
-        val mElementText = StringBuilder()
-        mElementText.append(elements.text())
+        val mElementText = elements.text().replace("\\s".toRegex(), " ")
 
-        val mElementOwnText = mutableListOf<String>()
-        val builder = StringBuilder()
+        val mElementTextList = mutableListOf<Resource>()
 
-        elements.forEach {
-            it.allElements.forEach { element ->
-                element.ownText()?.let { str ->
-                    builder.append(str)
-                    if (blockLevelElements.contains(element.tagName())) {
-                        mElementOwnText.add(builder.toString())
-                        builder.clear()
-                    }
+        elements.forEach { element ->
+            if (element.childrenSize() > 0) {
+                element.allElements.forEach {
+                    mElementTextList.add(it.getResource())
                 }
+            } else {
+                mElementTextList.add(element.getResource())
             }
         }
 
-        mElementOwnText.forEach {
-            val matchIndex = mElementText.trim().indexOf(it.trim())
-            if(it.trim().isNotEmpty()){
-                println("$it Index: $matchIndex Contains:${mElementText.contains(it, true)}")
-            }
-            if (matchIndex > 0)
-                mElementText.insert(matchIndex, "\n")
-        }
+        val mTextList = mutableListOf<String>()
+        mElementTextList.distinctBy { it.resourceText?.trim() }.forEachIndexed { index, resource ->
+            if (resource.tagName == "body" || resource.tagName == "div") return@forEachIndexed
 
-//        println(mElementText)
+            if (!mTextList.contains(resource.resourceText?.trim())) {
+                mTextList.add(resource.resourceText?.trim().toString())
+                println(resource.resourceText?.trim())
+            }
+        }
 
         return data
+    }
+
+    private fun Element.getResource(): Resource {
+        val href: String? = select(SRC_CSS_QUERY).attr("href")
+        val src: String? = select(SRC_CSS_QUERY).attr("src")
+        val text: String? = select(SRC_CSS_QUERY).text()
+        val height = select(SRC_CSS_QUERY).attr("height")
+        val width = select(SRC_CSS_QUERY).attr("width")
+
+        return Resource(
+                tagName(),
+                StringBuilder(wholeText()),
+                text,
+                src,
+                href,
+                height,
+                width
+        )
     }
 
     companion object {

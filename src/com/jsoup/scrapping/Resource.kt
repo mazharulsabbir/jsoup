@@ -5,18 +5,20 @@
  */
 package com.jsoup.scrapping
 
+import java.lang.StringBuilder
+
 /**
  *
  * @author Sabbir
  */
 data class Resource(
         var tagName: String?,
-        var resourceText: String?,
+        var resourceText: StringBuilder?,
         var mediaName: String?,
         var mediaSrc: String?,
         var mediaHref: String?,
-        var mediaheight: Int? = 0,
-        var mediawidth: Int? = 0
+        var mediaheight: Any?,
+        var mediawidth: Any?
 ) {
     constructor() : this(
             null,

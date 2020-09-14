@@ -75,10 +75,11 @@ object Main {
         val doc = Jsoup.parse(html.replace(REPlACE_WHITE_SPACE.toRegex(), ""))
 
         val parser = HtmlDataParser(doc)
-        parser.getResources().distinctBy { it.resourceText }.forEach { resource ->
+        parser.getResources().forEach { resource ->
             if (blockLevelElements.contains(resource.tagName)) println()
 
             print("<${resource.tagName}> ${resource.resourceText}")
+
             if (blockLevelElements.contains(resource.tagName)) println()
         }
 
