@@ -31,11 +31,12 @@ class HtmlDataParser(private val doc: Document) {
         elements.forEach {
             it.allElements.forEach { element ->
                 val matchIndex = mElementText.indexOf(element.text())
-                mElementText.insert(matchIndex, "\n")
+                if (blockLevelElements.contains(element.tagName()))
+                    mElementText.insert(matchIndex, "\n")
             }
         }
 
-        println(mElementText)
+        println(mElementText.trim())
 
         return data
     }
